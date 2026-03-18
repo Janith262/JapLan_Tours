@@ -1,0 +1,315 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Car, CarFront, Bus, Hotel, Star, Home, Landmark, Trees, Waves, UtensilsCrossed, ChevronLeft, ChevronRight } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useLanguage } from "@/context/useLanguage";
+import { translations } from "@/context/translations";
+import tourBg from "@/assets/tour-builder-bg.jpg";
+
+const CustomTourBuilder = () => {
+  const { t } = useLanguage();
+  const [step, setStep] = useState(0);
+  const [days, setDays] = useState(7);
+  const [vehicle, setVehicle] = useState("");
+  const [accommodation, setAccommodation] = useState("");
+  const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
+
+  const vehicles = [
+    { id: "minicar", label: t("vehicle.minicar"), sub: t("vehicle.minicar_sub"), icon: Car },
+    { id: "sedan", label: t("vehicle.sedan"), sub: t("vehicle.sedan_sub"), icon: CarFront },
+    { id: "van", label: t("vehicle.van"), sub: t("vehicle.van_sub"), icon: Bus },
+    { id: "minibus", label: t("vehicle.minibus"), sub: t("vehicle.minibus_sub"), icon: Bus },
+  ];
+
+  const accommodations = [
+    { id: "heritage", label: t("accommodation.heritage"), icon: Landmark, desc: t("accommodation.heritage_desc") },
+    { id: "luxury", label: t("accommodation.luxury"), icon: Star, desc: t("accommodation.luxury_desc") },
+    { id: "comfort", label: t("accommodation.comfort"), icon: Home, desc: t("accommodation.comfort_desc") },
+  ];
+
+  const interests = [
+    { id: "history", label: t("interest.history"), icon: Landmark },
+    { id: "wildlife", label: t("interest.wildlife"), icon: Trees },
+    { id: "beach", label: t("interest.beach"), icon: Waves },
+    { id: "culinary", label: t("interest.culinary"), icon: UtensilsCrossed },
+  ];
+
+  const toggleInterest = (id: string) => {
+    setSelectedInterests((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    );
+  };
+
+  const steps = [t("tour.duration"), t("tour.vehicle"), t("tour.stay"), t("tour.interests")];
+
+  const canNext = () => {
+    if (step === 0) return true;
+    if (step === 1) return !!vehicle;
+    if (step === 2) return !!accommodation;
+    return true;
+  };
+
+  return (
+    <section
+      id="tour-builder"
+      className="relative py-24 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: `url(${tourBg})` }} />
+      <div className="absolute inset-0 bg-black/40" />
+
+      <div className="relative z-10 container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-accent font-medium tracking-[0.2em] uppercase text-sm mb-3">{t("tour.tagline")}</p>
+          <h2 className="font-serif text-4xl md:text-5xl font-bold text-white mb-4">{t("tour.title")}</h2>
+        </motion.div>
+
+        <div className="flex flex-col lg:flex-row gap-8 max-w-5xl mx-auto">
+          {/* Main wizard */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex-1 glass-strong rounded-2xl p-8"
+          >
+            {/* Progress */}
+            <div className="flex items-center gap-2 mb-8">
+              {steps.map((s, i) => (
+                <div key={s} className="flex items-center gap-2 flex-1">
+                  <button
+                    onClick={() => setStep(i)}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
+                      i <= step
+                        ? "bg-accent text-accent-foreground"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                  <span className="text-xs font-medium text-foreground hidden sm:block">{s}</span>
+                  {i < steps.length - 1 && <div className={`flex-1 h-0.5 ${i < step ? "bg-accent" : "bg-muted"}`} />}
+                </div>
+              ))}
+            </div>
+
+            {/* Step content */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={step}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                {step === 0 && (
+                  <div className="space-y-6">
+                    <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.how_many_days")}</h3>
+                    <div className="py-4">
+                      <Slider
+                        value={[days]}
+                        onValueChange={(v) => setDays(v[0])}
+                        min={2}
+                        max={21}
+                        step={1}
+                        className="w-full"
+                      />
+                    </div>
+                    <p className="text-center text-4xl font-serif font-bold text-accent">{days} <span className="text-lg text-muted-foreground">{t("tour.days_unit")}</span></p>
+                  </div>
+                )}
+
+                {step === 1 && (
+                  <div className="space-y-6">
+                    <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.choose_vehicle")}</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {vehicles.map((v) => (
+                        <button
+                          key={v.id}
+                          onClick={() => setVehicle(v.id)}
+                          className={`p-6 rounded-xl border-2 transition-all text-center hover:scale-105 ${
+                            vehicle === v.id
+                              ? "border-accent bg-accent/10 shadow-lg"
+                              : "border-border bg-card hover:border-accent/50"
+                          }`}
+                        >
+                          <v.icon className={`mx-auto mb-3 ${vehicle === v.id ? "text-accent" : "text-muted-foreground"}`} size={32} />
+                          <p className="font-semibold text-foreground">{v.label}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{v.sub}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div className="space-y-6">
+                    <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.accommodation")}</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {accommodations.map((a) => (
+                        <button
+                          key={a.id}
+                          onClick={() => setAccommodation(a.id)}
+                          className={`p-6 rounded-xl border-2 transition-all text-center hover:scale-105 ${
+                            accommodation === a.id
+                              ? "border-accent bg-accent/10 shadow-lg"
+                              : "border-border bg-card hover:border-accent/50"
+                          }`}
+                        >
+                          <a.icon className={`mx-auto mb-3 ${accommodation === a.id ? "text-accent" : "text-muted-foreground"}`} size={32} />
+                          <p className="font-semibold text-foreground">{a.label}</p>
+                          <p className="text-xs text-muted-foreground mt-1">{a.desc}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div className="space-y-6">
+                    <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.your_interests")}</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {interests.map((int) => (
+                        <label
+                          key={int.id}
+                          className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:scale-[1.02] ${
+                            selectedInterests.includes(int.id)
+                              ? "border-accent bg-accent/10"
+                              : "border-border bg-card"
+                          }`}
+                        >
+                          <Checkbox
+                            checked={selectedInterests.includes(int.id)}
+                            onCheckedChange={() => toggleInterest(int.id)}
+                          />
+                          <int.icon className="text-accent" size={24} />
+                          <span className="font-medium text-foreground">{int.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Nav buttons */}
+            <div className="flex justify-between mt-8">
+              <button
+                onClick={() => setStep(Math.max(0, step - 1))}
+                disabled={step === 0}
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition"
+              >
+                <ChevronLeft size={18} /> {t("button.back")}
+              </button>
+              {step < 3 ? (
+                <button
+                  onClick={() => setStep(step + 1)}
+                  disabled={!canNext()}
+                  className="flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 disabled:opacity-50 transition"
+                >
+                  {t("button.next")} <ChevronRight size={18} />
+                </button>
+              ) : (
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => {
+                      const getEnLang = (key: keyof typeof translations.en) => 
+                        translations.en[key] || key;
+                        
+                      const emailVehicleLabel = vehicle 
+                        ? getEnLang(`vehicle.${vehicle}` as any) 
+                        : "—";
+                        
+                      const emailAccommodationLabel = accommodation 
+                        ? getEnLang(`accommodation.${accommodation}` as any) 
+                        : "—";
+
+                      const interestsList = selectedInterests.length > 0 
+                        ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ")
+                        : getEnLang("itinerary.none_selected" as any);
+                      
+                      const emailBody = encodeURIComponent(
+                        `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n${
+                          `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
+                          `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
+                          `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
+                          `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
+                          `${getEnLang("email.body_request" as any)}\n\n` +
+                          `${getEnLang("email.body_closing" as any)}`
+                        }`
+                      );
+                      
+                      window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${encodeURIComponent(getEnLang("email.subject" as any))}&body=${emailBody}`;
+                    }}
+                    className="bg-secondary text-secondary-foreground px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
+                  >
+                    {t("button.send_mail")}
+                  </button>
+                  <a
+                    href="https://line.me/R/ti/p/%2B94764345711"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#06C755] text-white px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
+                  >
+                    {t("button.send_line")}
+                  </a>
+                </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Sticky Summary */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:w-72 glass-strong rounded-2xl p-6 lg:sticky lg:top-24 h-fit"
+          >
+            <h4 className="font-serif text-lg font-bold text-foreground mb-4">{t("itinerary.title")}</h4>
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("tour.duration")}</span>
+                <span className="font-semibold text-foreground">{days} {t("tour.days_unit")}</span>
+              </div>
+              <div className="h-px bg-border" />
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("tour.vehicle")}</span>
+                <span className="font-semibold text-foreground">
+                  {vehicle ? vehicles.find((v) => v.id === vehicle)?.label : "—"}
+                </span>
+              </div>
+              <div className="h-px bg-border" />
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("tour.stay")}</span>
+                <span className="font-semibold text-foreground">
+                  {accommodation ? accommodations.find((a) => a.id === accommodation)?.label : "—"}
+                </span>
+              </div>
+              <div className="h-px bg-border" />
+              <div>
+                <span className="text-muted-foreground">{t("tour.interests")}</span>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {selectedInterests.length > 0 ? (
+                    selectedInterests.map((id) => (
+                      <span key={id} className="bg-accent/20 text-accent-foreground text-xs px-2 py-1 rounded-full font-medium">
+                        {interests.find((i) => i.id === id)?.label}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-muted-foreground text-xs">{t("itinerary.none_selected")}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CustomTourBuilder;

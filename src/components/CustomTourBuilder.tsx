@@ -257,9 +257,9 @@ const CustomTourBuilder = () => {
           >
             <h4 className="font-serif text-lg font-bold text-foreground mb-4">{t("itinerary.title")}</h4>
             <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">{t("tour.start_date").split('?')[0]}</span>
-                <span className="font-semibold text-foreground">{startDate || "—"}</span>
+              <div className="flex justify-between items-center gap-2">
+                <span className="text-muted-foreground truncate">{t("tour.start_date").split('?')[0]}</span>
+                <span className="font-semibold text-foreground whitespace-nowrap">{startDate || "—"}</span>
               </div>
               <div className="h-px bg-border/50" />
               <div className="flex justify-between">

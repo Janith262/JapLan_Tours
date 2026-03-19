@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Car, CarFront, Bus, Hotel, Star, Home, Landmark, Trees, Waves, UtensilsCrossed, ChevronLeft, ChevronRight } from "lucide-react";
+import { Car, CarFront, Bus, Hotel, Star, Home, Landmark, Trees, Waves, UtensilsCrossed, ChevronLeft, ChevronRight, Mail, MessageCircle } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/useLanguage";
 import { translations } from "@/context/translations";
 import tourBg from "@/assets/tour-builder-bg.jpg";
@@ -51,10 +52,7 @@ const CustomTourBuilder = () => {
   };
 
   return (
-    <section
-      id="tour-builder"
-      className="relative py-24 overflow-hidden"
-    >
+    <section id="tour-builder" className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: `url(${tourBg})` }} />
       <div className="absolute inset-0 bg-black/40" />
 
@@ -70,23 +68,20 @@ const CustomTourBuilder = () => {
         </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-8 max-w-5xl mx-auto">
-          {/* Main wizard */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex-1 glass-strong rounded-2xl p-8"
           >
-            {/* Progress */}
+            {/* Progress Bar */}
             <div className="flex items-center gap-2 mb-8">
               {steps.map((s, i) => (
                 <div key={s} className="flex items-center gap-2 flex-1">
                   <button
                     onClick={() => setStep(i)}
                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
-                      i <= step
-                        ? "bg-accent text-accent-foreground"
-                        : "bg-muted text-muted-foreground"
+                      i <= step ? "bg-accent text-accent-foreground" : "bg-muted text-muted-foreground"
                     }`}
                   >
                     {i + 1}
@@ -97,7 +92,6 @@ const CustomTourBuilder = () => {
               ))}
             </div>
 
-            {/* Step content */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={step}
@@ -110,16 +104,11 @@ const CustomTourBuilder = () => {
                   <div className="space-y-6">
                     <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.how_many_days")}</h3>
                     <div className="py-4">
-                      <Slider
-                        value={[days]}
-                        onValueChange={(v) => setDays(v[0])}
-                        min={2}
-                        max={21}
-                        step={1}
-                        className="w-full"
-                      />
+                      <Slider value={[days]} onValueChange={(v) => setDays(v[0])} min={2} max={21} step={1} className="w-full" />
                     </div>
-                    <p className="text-center text-4xl font-serif font-bold text-accent">{days} <span className="text-lg text-muted-foreground">{t("tour.days_unit")}</span></p>
+                    <p className="text-center text-4xl font-serif font-bold text-accent">
+                      {days} <span className="text-lg text-muted-foreground">{t("tour.days_unit")}</span>
+                    </p>
                   </div>
                 )}
 
@@ -132,9 +121,7 @@ const CustomTourBuilder = () => {
                           key={v.id}
                           onClick={() => setVehicle(v.id)}
                           className={`p-6 rounded-xl border-2 transition-all text-center hover:scale-105 ${
-                            vehicle === v.id
-                              ? "border-accent bg-accent/10 shadow-lg"
-                              : "border-border bg-card hover:border-accent/50"
+                            vehicle === v.id ? "border-accent bg-accent/10 shadow-lg" : "border-border bg-card hover:border-accent/50"
                           }`}
                         >
                           <v.icon className={`mx-auto mb-3 ${vehicle === v.id ? "text-accent" : "text-muted-foreground"}`} size={32} />
@@ -155,9 +142,7 @@ const CustomTourBuilder = () => {
                           key={a.id}
                           onClick={() => setAccommodation(a.id)}
                           className={`p-6 rounded-xl border-2 transition-all text-center hover:scale-105 ${
-                            accommodation === a.id
-                              ? "border-accent bg-accent/10 shadow-lg"
-                              : "border-border bg-card hover:border-accent/50"
+                            accommodation === a.id ? "border-accent bg-accent/10 shadow-lg" : "border-border bg-card hover:border-accent/50"
                           }`}
                         >
                           <a.icon className={`mx-auto mb-3 ${accommodation === a.id ? "text-accent" : "text-muted-foreground"}`} size={32} />
@@ -177,130 +162,74 @@ const CustomTourBuilder = () => {
                         <label
                           key={int.id}
                           className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:scale-[1.02] select-none [-webkit-tap-highlight-color:transparent] ${
-                            selectedInterests.includes(int.id)
-                              ? "border-accent bg-accent/10"
-                              : "border-border bg-card"
+                            selectedInterests.includes(int.id) ? "border-accent bg-accent/10" : "border-border bg-card"
                           }`}
                         >
-                          <Checkbox
-                            checked={selectedInterests.includes(int.id)}
-                            onCheckedChange={() => toggleInterest(int.id)}
-                          />
+                          <Checkbox checked={selectedInterests.includes(int.id)} onCheckedChange={() => toggleInterest(int.id)} />
                           <int.icon className="text-accent" size={24} />
                           <span className="font-medium text-foreground">{int.label}</span>
                         </label>
                       ))}
                     </div>
+                    {/* Send buttons for the final step */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-border/50">
+                      <Button
+                        onClick={() => {
+                          const getEnLang = (key: keyof typeof translations.en) => translations.en[key] || (key as string);
+                          const emailVehicleLabel = vehicle ? getEnLang(`vehicle.${vehicle}` as any) : "—";
+                          const emailAccommodationLabel = accommodation ? getEnLang(`accommodation.${accommodation}` as any) : "—";
+                          const interestsList = selectedInterests.length > 0 
+                            ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ") 
+                            : getEnLang("itinerary.none_selected" as any);
+                          
+                          const emailBody = encodeURIComponent(
+                            `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n` +
+                            `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
+                            `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
+                            `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
+                            `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
+                            `${getEnLang("email.body_request" as any)}\n\n` +
+                            `${getEnLang("email.body_closing" as any)}`
+                          );
+                          window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${encodeURIComponent(getEnLang("email.subject" as any))}&body=${emailBody}`;
+                        }}
+                        className="bg-secondary hover:bg-secondary/90 text-white h-12 rounded-xl text-lg font-semibold flex-1 gap-2"
+                      >
+                        <Mail size={18} /> {t("button.send_mail")}
+                      </Button>
+                      <Button
+                        onClick={() => window.open("https://line.me/R/ti/p/%2B94764345711", "_blank")}
+                        className="bg-[#06C755] hover:bg-[#05b34c] text-white h-12 rounded-xl text-lg font-semibold flex-1 gap-2"
+                      >
+                        <MessageCircle size={18} /> {t("button.send_line")}
+                      </Button>
+                    </div>
                   </div>
                 )}
-                {/* Nav buttons inside motion.div to prevent ghosting during transitions */}
-                <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center sm:items-start gap-4 sm:gap-0 mt-8 pt-6 border-t border-border/50">
+
+                {/* Common Nav buttons inside motion.div */}
+                <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 mt-8 pt-6 border-t border-border/50">
                   <button
                     type="button"
                     onClick={() => setStep(Math.max(0, step - 1))}
                     disabled={step === 0}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition w-full sm:w-auto justify-center sm:justify-start py-2 select-none"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition w-full sm:w-auto justify-center sm:justify-start py-2 font-medium select-none"
                   >
                     <ChevronLeft size={18} /> {t("button.back")}
                   </button>
-                  
-                  {step < 3 ? (
-                    <Button 
+                  {step < 3 && (
+                    <Button
                       type="button"
                       onClick={() => setStep(Math.min(3, step + 1))}
                       disabled={!canNext()}
-                      className="bg-accent text-accent-foreground hover:brightness-110 rounded-xl px-8 h-12 font-semibold w-full sm:w-auto shadow-lg shadow-accent/20 select-none"
+                      className="bg-accent text-accent-foreground hover:brightness-110 rounded-xl px-10 h-12 font-bold w-full sm:w-auto shadow-lg shadow-accent/20 select-none"
                     >
-                      {t("button.next")} <ChevronRight size={18} />
+                      {t("button.next")} <ChevronRight size={18} className="ml-1" />
                     </Button>
-                  ) : (
-                    <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
-                      <button
-                        onClick={() => {
-                          const getEnLang = (key: keyof typeof translations.en) => 
-                            translations.en[key] || key;
-                            
-                          const emailVehicleLabel = vehicle 
-                            ? getEnLang(`vehicle.${vehicle}` as any) 
-                            : "—";
-                            
-                          const emailAccommodationLabel = accommodation 
-                            ? getEnLang(`accommodation.${accommodation}` as any) 
-                            : "—";
-
-                          const interestsList = selectedInterests.length > 0 
-                            ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ")
-                            : getEnLang("itinerary.none_selected" as any);
-                          
-                          const emailBody = encodeURIComponent(
-                            `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n${
-                              `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
-                              `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
-                              `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
-                              `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
-                              `${getEnLang("email.body_request" as any)}\n\n` +
-                              `${getEnLang("email.body_closing" as any)}`
-                            }`
-                          );
-                          
-                          window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${encodeURIComponent(getEnLang("email.subject" as any))}&body=${emailBody}`;
-                        }}
-                        className="bg-secondary text-secondary-foreground px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
-                      >
-                        {t("button.send_mail")}
-                      </button>
-                      <a
-                        href="https://line.me/R/ti/p/%2B94764345711"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-[#06C755] text-white px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
-                      >
-                        {t("button.send_line")}
-                      </a>
-                    </div>
                   )}
                 </div>
               </motion.div>
             </AnimatePresence>
-                        ? getEnLang(`vehicle.${vehicle}` as any) 
-                        : "—";
-                        
-                      const emailAccommodationLabel = accommodation 
-                        ? getEnLang(`accommodation.${accommodation}` as any) 
-                        : "—";
-
-                      const interestsList = selectedInterests.length > 0 
-                        ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ")
-                        : getEnLang("itinerary.none_selected" as any);
-                      
-                      const emailBody = encodeURIComponent(
-                        `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n${
-                          `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
-                          `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
-                          `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
-                          `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
-                          `${getEnLang("email.body_request" as any)}\n\n` +
-                          `${getEnLang("email.body_closing" as any)}`
-                        }`
-                      );
-                      
-                      window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${encodeURIComponent(getEnLang("email.subject" as any))}&body=${emailBody}`;
-                    }}
-                    className="bg-secondary text-secondary-foreground px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
-                  >
-                    {t("button.send_mail")}
-                  </button>
-                  <a
-                    href="https://line.me/R/ti/p/%2B94764345711"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-[#06C755] text-white px-6 py-2.5 rounded-lg font-semibold hover:brightness-110 transition"
-                  >
-                    {t("button.send_line")}
-                  </a>
-                </div>
-              )}
-            </div>
           </motion.div>
 
           {/* Sticky Summary */}

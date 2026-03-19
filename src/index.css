@@ -122,6 +122,17 @@
   .text-gradient-gold {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-accent via-yellow-400 to-accent;
   }
+
+  /* Force placeholder alignment and hide browser artifacts */
+  ::placeholder {
+    opacity: 1; /* Firefox */
+  }
+
+  input::placeholder, 
+  textarea::placeholder {
+    vertical-align: middle;
+    line-height: normal;
+  }
 }
 
 html {

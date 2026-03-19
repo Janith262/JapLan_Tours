@@ -271,7 +271,7 @@ const Testimonials = () => {
                         onChange={e => setName(e.target.value)} 
                         required 
                         placeholder={t("review_form.name_placeholder")} 
-                        className="w-full bg-background border-border h-12 py-2" 
+                        className="w-full bg-background border-border h-11 px-4 text-base" 
                         autoComplete="name" 
                       />
                     </div>
@@ -304,7 +304,7 @@ const Testimonials = () => {
                           onChange={e => setCountry(e.target.value)} 
                           required 
                           placeholder={t("review_form.country_placeholder")} 
-                          className="w-full bg-background border-border h-12 py-2" 
+                          className="w-full bg-background border-border h-11 px-4 text-base" 
                           autoComplete="country-name" 
                         />
                       </div>
@@ -316,7 +316,7 @@ const Testimonials = () => {
                           onChange={e => setCity(e.target.value)} 
                           required 
                           placeholder={t("review_form.city_placeholder")} 
-                          className="w-full bg-background border-border h-12 py-2" 
+                          className="w-full bg-background border-border h-11 px-4 text-base" 
                           autoComplete="address-level2" 
                         />
                       </div>
@@ -329,7 +329,7 @@ const Testimonials = () => {
                         onChange={e => setComment(e.target.value)} 
                         required 
                         placeholder={t("review_form.comment_placeholder")} 
-                        className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-3 text-base leading-relaxed"
+                        className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-2 px-4 text-base resize-none"
                         autoComplete="off"
                       />
                     </div>

@@ -11,6 +11,7 @@ import {
   query as firestoreQuery,
   orderBy as firestoreOrderBy,
 } from "firebase/firestore";
+import { sanitizeName, sanitizeLongText } from "@/lib/sanitization";
 
 export type ReviewStatus = "pending" | "approved";
 
@@ -108,6 +109,10 @@ export const useAdminData = () => {
     const reviewsRef = firestoreCollection(db, "reviews");
     await firestoreAddDoc(reviewsRef, {
       ...reviewData,
+      name: sanitizeName(reviewData.name),
+      country: sanitizeName(reviewData.country),
+      city: sanitizeName(reviewData.city),
+      comment: sanitizeLongText(reviewData.comment),
       status: "pending",
       createdAt: firestoreServerTimestamp(),
     });
@@ -164,6 +169,14 @@ export const useAdminData = () => {
     const sitesRef = firestoreCollection(db, "sites");
     await firestoreAddDoc(sitesRef, {
       ...siteData,
+      name: sanitizeName(siteData.name),
+      subtitle: sanitizeName(siteData.subtitle),
+      description: sanitizeLongText(siteData.description),
+      long_description: sanitizeLongText(siteData.long_description),
+      nameJa: siteData.nameJa ? sanitizeName(siteData.nameJa) : undefined,
+      subtitleJa: siteData.subtitleJa ? sanitizeName(siteData.subtitleJa) : undefined,
+      descriptionJa: siteData.descriptionJa ? sanitizeLongText(siteData.descriptionJa) : undefined,
+      long_descriptionJa: siteData.long_descriptionJa ? sanitizeLongText(siteData.long_descriptionJa) : undefined,
       createdAt: firestoreServerTimestamp(),
     });
   };

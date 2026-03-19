@@ -99,6 +99,8 @@ const CustomTourBuilder = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
+                style={{ backfaceVisibility: 'hidden', transform: 'translateZ(0)' }}
+                className="will-change-transform"
               >
                 {step === 0 && (
                   <div className="space-y-6">
@@ -208,7 +210,7 @@ const CustomTourBuilder = () => {
                 )}
 
                 {/* Common Nav buttons inside motion.div */}
-                <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 mt-8 pt-6 border-t border-border/50">
+                <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-6 mt-12 pt-8 border-t border-border/50">
                   <button
                     type="button"
                     onClick={() => setStep(Math.max(0, step - 1))}

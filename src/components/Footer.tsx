@@ -37,7 +37,7 @@ const Footer = () => {
                 <Mail size={14} className="text-accent" />
                 {t("footer.email")}
               </a>
-              <a href="https://line.me/R/ti/p/%2B94764345711" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+              <a href="https://line.me/ti/p/MatnhhMPdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
                 <Phone size={14} className="text-accent" />
                 {t("footer.phone")}
               </a>

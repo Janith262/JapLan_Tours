@@ -200,7 +200,7 @@ const CustomTourBuilder = () => {
                         <Mail size={18} /> {t("button.send_mail")}
                       </Button>
                       <Button
-                        onClick={() => window.open("https://line.me/R/ti/p/%2B94764345711", "_blank")}
+                        onClick={() => window.open("https://line.me/ti/p/MatnhhMPdf", "_blank")}
                         className="bg-[#06C755] hover:bg-[#05b34c] text-white h-12 rounded-xl text-lg font-semibold flex-1 gap-2"
                       >
                         <MessageCircle size={18} /> {t("button.send_line")}

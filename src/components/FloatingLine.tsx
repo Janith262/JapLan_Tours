@@ -7,7 +7,7 @@ const FloatingLine = () => {
 
   return (
     <motion.a
-      href="https://line.me/R/ti/p/%2B94764345711"
+      href="https://line.me/ti/p/MatnhhMPdf"
       target="_blank"
       rel="noopener noreferrer"
       initial={{ scale: 0 }}

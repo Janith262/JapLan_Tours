@@ -265,7 +265,15 @@ const Testimonials = () => {
                   <form onSubmit={handleSubmitReview} className="space-y-6 py-4">
                     <div className="space-y-2">
                       <Label htmlFor="name" className="text-sm font-medium">{t("review_form.name_label")}</Label>
-                      <Input id="name" value={name} onChange={e => setName(e.target.value)} required placeholder={t("review_form.name_placeholder")} className="w-full" autoComplete="off" />
+                      <Input 
+                        id="name" 
+                        value={name} 
+                        onChange={e => setName(e.target.value)} 
+                        required 
+                        placeholder={t("review_form.name_placeholder")} 
+                        className="w-full bg-background border-border h-12 py-2" 
+                        autoComplete="name" 
+                      />
                     </div>
                     <div className="space-y-2">
                        <Label className="text-sm font-medium">{t("review_form.rating_label")}</Label>
@@ -290,11 +298,27 @@ const Testimonials = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="country" className="text-sm font-medium">{t("review_form.country_label")}</Label>
-                        <Input id="country" value={country} onChange={e => setCountry(e.target.value)} required placeholder={t("review_form.country_placeholder")} className="w-full" autoComplete="off" />
+                        <Input 
+                          id="country" 
+                          value={country} 
+                          onChange={e => setCountry(e.target.value)} 
+                          required 
+                          placeholder={t("review_form.country_placeholder")} 
+                          className="w-full bg-background border-border h-12 py-2" 
+                          autoComplete="country-name" 
+                        />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="city" className="text-sm font-medium">{t("review_form.city_label")}</Label>
-                        <Input id="city" value={city} onChange={e => setCity(e.target.value)} required placeholder={t("review_form.city_placeholder")} className="w-full" autoComplete="off" />
+                        <Label htmlFor="city" className="text-sm font-medium">{t("review_form.city")}</Label>
+                        <Input 
+                          id="city" 
+                          value={city} 
+                          onChange={e => setCity(e.target.value)} 
+                          required 
+                          placeholder={t("review_form.city_placeholder")} 
+                          className="w-full bg-background border-border h-12 py-2" 
+                          autoComplete="address-level2" 
+                        />
                       </div>
                     </div>
                     <div className="space-y-2">
@@ -305,7 +329,7 @@ const Testimonials = () => {
                         onChange={e => setComment(e.target.value)} 
                         required 
                         placeholder={t("review_form.comment_placeholder")} 
-                        className="w-full min-h-[80px] resize-none focus-visible:ring-1 focus-visible:ring-accent" 
+                        className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-3 text-base leading-relaxed"
                         autoComplete="off"
                       />
                     </div>

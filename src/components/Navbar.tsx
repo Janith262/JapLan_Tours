@@ -20,20 +20,6 @@ const Navbar = () => {
     { label: t("navbar.contact"), href: "/#footer" },
   ];
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // If it's a hash link and we are already on the home page
-    if (href.startsWith("/#") && window.location.pathname === "/") {
-      e.preventDefault();
-      const id = href.replace("/#", "");
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-        // Update URL without jump
-        window.history.pushState(null, "", href);
-      }
-    }
-  };
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -43,7 +29,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <a href="/" className="flex items-center gap-3" onClick={(e) => handleNavClick(e, "/")}>
+        <a href="/" className="flex items-center gap-3">
           <img 
             src="/logo.png" 
             alt="JapLan Tours" 
@@ -61,7 +47,6 @@ const Navbar = () => {
             <a
               key={l.href}
               href={l.href}
-              onClick={(e) => handleNavClick(e, l.href)}
               className={`text-sm font-medium transition-colors hover:text-accent ${
                 scrolled ? "text-foreground" : "text-white/90"
               }`}
@@ -71,7 +56,6 @@ const Navbar = () => {
           ))}
           <a
             href="/#tour-builder"
-            onClick={(e) => handleNavClick(e, "/#tour-builder")}
             className="bg-accent text-accent-foreground px-5 py-2.5 rounded-lg text-sm font-semibold hover:brightness-110 transition"
           >
             {t("navbar.plan_tour")}
@@ -158,10 +142,7 @@ const Navbar = () => {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={(e) => {
-                    setMobileOpen(false);
-                    handleNavClick(e, l.href);
-                  }}
+                  onClick={() => setMobileOpen(false)}
                   className="text-foreground font-medium hover:text-accent transition-colors"
                 >
                   {l.label}
@@ -169,10 +150,7 @@ const Navbar = () => {
               ))}
               <a
                 href="/#tour-builder"
-                onClick={(e) => {
-                  setMobileOpen(false);
-                  handleNavClick(e, "/#tour-builder");
-                }}
+                onClick={() => setMobileOpen(false)}
                 className="bg-accent text-accent-foreground px-5 py-2.5 rounded-lg text-sm font-semibold text-center"
               >
                 {t("navbar.plan_tour")}

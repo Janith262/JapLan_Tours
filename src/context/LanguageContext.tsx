@@ -6,6 +6,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [language, setLanguageState] = useState<Language>(() => {
+    // Check if we already forced Japanese once for this user
+    const hasBeenForced = localStorage.getItem("language_force_ja_v1");
+    if (!hasBeenForced) {
+      localStorage.setItem("language_force_ja_v1", "true");
+      return "ja";
+    }
     const saved = localStorage.getItem("language");
     return (saved as Language) || "ja";
   });

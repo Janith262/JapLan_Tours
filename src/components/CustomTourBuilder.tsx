@@ -12,6 +12,7 @@ const CustomTourBuilder = () => {
   const { t } = useLanguage();
   const [step, setStep] = useState(0);
   const [days, setDays] = useState(7);
+  const [startDate, setStartDate] = useState("");
   const [vehicle, setVehicle] = useState("");
   const [accommodation, setAccommodation] = useState("");
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
@@ -103,14 +104,27 @@ const CustomTourBuilder = () => {
                 className="will-change-transform"
               >
                 {step === 0 && (
-                  <div className="space-y-6">
-                    <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.how_many_days")}</h3>
-                    <div className="py-4">
-                      <Slider value={[days]} onValueChange={(v) => setDays(v[0])} min={2} max={21} step={1} className="w-full" />
+                  <div className="space-y-8">
+                    <div className="space-y-6">
+                      <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.how_many_days")}</h3>
+                      <div className="py-4">
+                        <Slider value={[days]} onValueChange={(v) => setDays(v[0])} min={2} max={21} step={1} className="w-full" />
+                      </div>
+                      <p className="text-center text-4xl font-serif font-bold text-accent">
+                        {days} <span className="text-lg text-muted-foreground">{t("tour.days_unit")}</span>
+                      </p>
                     </div>
-                    <p className="text-center text-4xl font-serif font-bold text-accent">
-                      {days} <span className="text-lg text-muted-foreground">{t("tour.days_unit")}</span>
-                    </p>
+
+                    <div className="space-y-4 pt-6 border-t border-border/30">
+                      <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.start_date")}</h3>
+                      <input
+                        type="date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                        className="w-full h-14 bg-card/50 border-2 border-border rounded-xl px-4 text-foreground focus:outline-none focus:border-accent transition-colors color-scheme-dark"
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
                   </div>
                 )}
 
@@ -183,9 +197,9 @@ const CustomTourBuilder = () => {
                           const interestsList = selectedInterests.length > 0 
                             ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ") 
                             : getEnLang("itinerary.none_selected" as any);
-                          
                           const emailBody = encodeURIComponent(
                             `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n` +
+                            `${getEnLang("email.body_start_date" as any)} ${startDate || "—"}\n` +
                             `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
                             `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
                             `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
@@ -243,6 +257,11 @@ const CustomTourBuilder = () => {
           >
             <h4 className="font-serif text-lg font-bold text-foreground mb-4">{t("itinerary.title")}</h4>
             <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">{t("tour.start_date").split('?')[0]}</span>
+                <span className="font-semibold text-foreground">{startDate || "—"}</span>
+              </div>
+              <div className="h-px bg-border/50" />
               <div className="flex justify-between">
                 <span className="text-muted-foreground">{t("tour.duration")}</span>
                 <span className="font-semibold text-foreground">{days} {t("tour.days_unit")}</span>

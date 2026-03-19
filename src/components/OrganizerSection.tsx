@@ -62,7 +62,7 @@ const OrganizerSection = () => {
               >
                 <div className="relative h-96 md:h-full w-full overflow-hidden">
                   <img
-                    src="/organizer.png"
+                    src="/organizer-new.png"
                     alt="W S P K Gunarathna – JapLan Tours Organizer"
                     className="h-full w-full object-cover object-center"
                   />

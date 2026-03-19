@@ -104,10 +104,10 @@ const CustomTourBuilder = () => {
                 className="will-change-transform"
               >
                 {step === 0 && (
-                  <div className="space-y-8">
+                  <div className="space-y-8 max-w-md mx-auto">
                     <div className="space-y-6">
-                      <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.how_many_days")}</h3>
-                      <div className="py-4">
+                      <h3 className="font-serif text-2xl font-bold text-foreground text-center">{t("tour.how_many_days")}</h3>
+                      <div className="py-4 px-2">
                         <Slider value={[days]} onValueChange={(v) => setDays(v[0])} min={2} max={21} step={1} className="w-full" />
                       </div>
                       <p className="text-center text-4xl font-serif font-bold text-accent">
@@ -116,14 +116,16 @@ const CustomTourBuilder = () => {
                     </div>
 
                     <div className="space-y-4 pt-6 border-t border-border/30">
-                      <h3 className="font-serif text-2xl font-bold text-foreground">{t("tour.start_date")}</h3>
-                      <input
-                        type="date"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        className="w-full h-14 bg-card/50 border-2 border-border rounded-xl px-4 text-foreground focus:outline-none focus:border-accent transition-colors color-scheme-dark"
-                        min={new Date().toISOString().split('T')[0]}
-                      />
+                      <h3 className="font-serif text-2xl font-bold text-foreground text-center">{t("tour.start_date")}</h3>
+                      <div className="flex justify-center">
+                        <input
+                          type="date"
+                          value={startDate}
+                          onChange={(e) => setStartDate(e.target.value)}
+                          className="w-full max-w-sm h-14 bg-card/50 border-2 border-border rounded-xl px-4 text-foreground focus:outline-none focus:border-accent transition-colors color-scheme-dark text-center"
+                          min={new Date().toISOString().split('T')[0]}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}

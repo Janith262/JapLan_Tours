@@ -403,7 +403,7 @@ const Testimonials = () => {
                       )}
                     </div>
 
-                    <div className="flex justify-end gap-3 pt-4 border-t border-border mt-4">
+                    <div className="flex justify-end gap-3 pt-4 border-t border-border mt-4 sm:pb-0 pb-32">
                       <Button type="button" variant="outline" onClick={() => setIsOpen(false)}>
                         {t("review_form.cancel")}
                       </Button>

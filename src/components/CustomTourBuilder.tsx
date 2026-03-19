@@ -176,7 +176,7 @@ const CustomTourBuilder = () => {
                       {interests.map((int) => (
                         <label
                           key={int.id}
-                          className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:scale-[1.02] ${
+                          className={`flex items-center gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all hover:scale-[1.02] select-none [-webkit-tap-highlight-color:transparent] ${
                             selectedInterests.includes(int.id)
                               ? "border-accent bg-accent/10"
                               : "border-border bg-card"
@@ -197,11 +197,11 @@ const CustomTourBuilder = () => {
             </AnimatePresence>
 
             {/* Nav buttons */}
-            <div className="flex justify-between mt-8">
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center sm:items-start gap-4 sm:gap-0 mt-8">
               <button
                 onClick={() => setStep(Math.max(0, step - 1))}
                 disabled={step === 0}
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground disabled:opacity-30 transition w-full sm:w-auto justify-center sm:justify-start"
               >
                 <ChevronLeft size={18} /> {t("button.back")}
               </button>
@@ -214,7 +214,7 @@ const CustomTourBuilder = () => {
                   {t("button.next")} <ChevronRight size={18} />
                 </button>
               ) : (
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-3">
                   <button
                     onClick={() => {
                       const getEnLang = (key: keyof typeof translations.en) => 

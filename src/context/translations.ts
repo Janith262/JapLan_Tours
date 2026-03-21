@@ -7,6 +7,7 @@ export const translations = {
     "navbar.build_tour": "Build Your Tour",
     "navbar.reviews": "Reviews",
     "navbar.contact": "Contact",
+    "navbar.faq": "FAQ",
     "navbar.plan_tour": "Plan Your Tour",
 
     // Hero
@@ -83,6 +84,7 @@ export const translations = {
     "footer.heritage": "Heritage Sites",
     "footer.build_tour": "Build Your Tour",
     "footer.reviews": "Traveler Reviews",
+    "footer.faq": "FAQ",
     "footer.contact_header": "Contact Us",
     "footer.email": "japlantours.srilanka@gmail.com",
     "footer.phone": "+94 764345711",
@@ -184,24 +186,59 @@ export const translations = {
     // Floating LINE
     "floating_line.label": "Contact us on LINE",
 
-    // Review Form
-    "review_form.submit_button": "Submit a Review",
-    "review_form.title": "Submit Your Review",
-    "review_form.description": "Share your experience with us.",
-    "review_form.name_label": "Name",
-    "review_form.rating_label": "Rating",
-    "review_form.country_label": "Country",
-    "review_form.city": "City",
-    "review_form.city_label": "City",
-    "review_form.comment_label": "Comment",
-    "review_form.name_placeholder": "John Doe",
-    "review_form.country_placeholder": "United States",
-    "review_form.city_placeholder": "New York",
-    "review_form.comment_placeholder": "Tell us about your trip...",
-    "review_form.submit": "Submit Review",
-    "review_form.cancel": "Cancel",
-    "review_form.success_title": "Thank you!",
     "review_form.success_desc": "Your review has been submitted successfully.",
+
+    // FAQ Section
+    "faq.tagline": "FAQ",
+    "faq.title": "Frequently Asked Questions",
+    
+    "faq.cat.reservations": "Reservations & Fees",
+    "faq.cat.drivers": "Drivers & Vehicles",
+    "faq.cat.contents": "Tour & Schedule",
+    "faq.cat.tip": "Tips & Culture",
+    "faq.cat.preparing": "Trip Preparation",
+
+    // Reservations & Fees
+    "faq.res.q1": "How do I make a reservation?",
+    "faq.res.a1": "Please send your request from the [Inquiry Form] on this site. We will contact you after confirming the details.",
+    "faq.res.q2": "Is there a cancellation fee?",
+    "faq.res.a2": "A cancellation fee applies once the reservation is confirmed. The 'reservation fee' paid in advance is non-refundable as it ensures the driver's schedule. No refunds are provided for cancellations made during the tour.",
+    "faq.res.q3": "How do I pay?",
+    "faq.res.a3": "Payment is in two stages: 1. A reservation fee (credit card) paid in advance in Sri Lankan Rupees. 2. Remaining balance (cash) paid on the first day of the tour at a local ATM or bank with the driver's assistance.",
+    "faq.res.q4": "What is included in the price?",
+    "faq.res.a4": "[Included]: Vehicle, fuel, insurance, driver fees, driver's food/accommodation, highway and parking fees. [Excluded]: Tips, your meals/accommodation, entrance fees, activities, and safari jeep fees.",
+
+    // Drivers & Vehicles
+    "faq.drv.q1": "How do I contact the driver?",
+    "faq.drv.a1": "After the reservation fee is paid, we will share the LINE contact for the manager and driver Wushan. Communication in English is smooth.",
+    "faq.drv.q2": "Will Ushan be the driver?",
+    "faq.drv.a2": "The driver will be Ushan or a highly-rated, experienced driver personally endorsed by him for their quality service.",
+    "faq.drv.q3": "Can the driver speak Japanese?",
+    "faq.drv.a3": "Communication is primarily in simple English. Hand gestures and translation apps also work well. You can nominate a Japanese-speaking driver for an additional fee.",
+    "faq.drv.q4": "How many seats and suitcases fit?",
+    "faq.drv.a4": "Standard sedans seat 3 passengers (plus driver) and fit 2-3 suitcases. A 7-seater van can be arranged upon request.",
+    "faq.drv.q5": "Are child seats available?",
+    "faq.drv.a5": "Child seats are not mandatory or standard in Sri Lanka, but we ensure extra careful driving when children are on board.",
+
+    // Tour & Schedule
+    "faq.sch.q1": "Can I change the tour contents?",
+    "faq.sch.a1": "Yes, our model courses are fully customizable. You can freely add or remove attractions by discussing with your driver.",
+    "faq.sch.q2": "What are the driver's hours?",
+    "faq.sch.a2": "Standard hours are 7:00 AM to 7:00 PM, though we can adjust based on your needs. Tours starting after 4:00 PM usually begin the next morning.",
+    "faq.sch.q3": "Can you book safari and trains?",
+    "faq.sch.a3": "Yes, the driver can arrange these locally. You can inform us in advance or decide on the spot.",
+    "faq.sch.q4": "Can we see the sunrise at Sigiriya?",
+    "faq.sch.a4": "Yes. We recommend a tuk-tuk for early morning (5 AM) starts due to narrow paths and wildlife. The driver will arrange a professional local tuk-tuk for you.",
+
+    // Tips & Culture
+    "faq.tip.q1": "Is a tip required?",
+    "faq.tip.a1": "Sri Lanka has a tipping culture. It is customary to give 2,000–3,000 LKR per day to your driver. Consult your driver for standard tips for safari or tuk-tuk services.",
+
+    // Trip Preparation
+    "faq.pre.q1": "Where can I exchange money?",
+    "faq.pre.q1_a": "We recommend exchanging money at the airport upon arrival as rates are consistent. Banks and authorized city exchanges are also options.",
+    "faq.pre.q2": "What should I wear?",
+    "faq.pre.q2_a": "Wear modest clothing for temples (covering shoulders/knees). You'll need to remove shoes at temples, so bringing socks is recommended.",
   },
   ja: {
     // Navbar
@@ -209,6 +246,7 @@ export const translations = {
     "navbar.build_tour": "ツアーを作成",
     "navbar.reviews": "レビュー",
     "navbar.contact": "お問い合わせ",
+    "navbar.faq": "よくある質問",
     "navbar.plan_tour": "ツアーを計画する",
 
     // Hero
@@ -285,6 +323,7 @@ export const translations = {
     "footer.heritage": "歴史遺産",
     "footer.build_tour": "ツアーを作成",
     "footer.reviews": "旅行者のレビュー",
+    "footer.faq": "よくある質問",
     "footer.contact_header": "お問い合わせ",
     "footer.email": "japlantours.srilanka@gmail.com",
     "footer.phone": "+94 764345711",
@@ -404,5 +443,57 @@ export const translations = {
     "review_form.cancel": "キャンセル",
     "review_form.success_title": "ありがとうございます！",
     "review_form.success_desc": "レビューが正常に送信されました。",
+
+    // FAQ Section
+    "faq.tagline": "よくある質問",
+    "faq.title": "よくあるご質問 (FAQ)",
+    
+    "faq.cat.reservations": "ご予約と料金",
+    "faq.cat.drivers": "ドライバーと車両",
+    "faq.cat.contents": "ツアー内容と日程",
+    "faq.cat.tip": "チップと文化",
+    "faq.cat.preparing": "旅行の準備",
+
+    // Reservations & Fees
+    "faq.res.q1": "予約方法を教えてください。",
+    "faq.res.a1": "本サイトの[お問い合わせフォーム]から送信してください。内容を確認後、担当者よりご連絡いたします。",
+    "faq.res.q2": "キャンセル料はかかりますか？",
+    "faq.res.a2": "予約確定後のキャンセルには料金が発生します。事前にお支払いいただく「予約金」は、ドライバーのスケジュール確保のため返金不可となります。ツアー開始後の途中キャンセルも返金いたしかねます。",
+    "faq.res.q3": "支払い方法を教えてください。",
+    "faq.res.a3": "お支払いは2段階です：1. 予約金（クレジットカード決済・スリランカルピー）。2. 残金（現地での現金払い）。初日にドライバーが銀行やATMでの両替・送金をお手伝いします。",
+    "faq.res.q4": "ツアー料金に含まれるもの・含まれないものは？",
+    "faq.res.a4": "【含まれるもの】車両代、ガソリン代、保険、ドライバー費用、ドライバーの宿泊・食事代、高速・駐車場料金。【含まれないもの】チップ、お客様の食事・宿泊費、入場料、アクティビティ代、サファリジープ代。",
+
+    // Drivers & Vehicles
+    "faq.drv.q1": "ドライバーへの連絡方法は？",
+    "faq.drv.a1": "予約金のお支払い後、担当者およびドライバー（ウシャン）のLINEをご案内します。英語でのコミュニケーションはスムーズです。",
+    "faq.drv.q2": "ドライバーはウシャンさんですか？",
+    "faq.drv.a2": "ウシャン本人、または彼が太鼓判を押す経験豊富で評価の高い紹介ドライバーが担当いたします。",
+    "faq.drv.q3": "日本語は通じますか？",
+    "faq.drv.a3": "基本は簡単な英語での会話となります。ジェスチャーや翻訳アプリで十分意思疎通が可能です。追加料金で日本語対応ドライバーの指名も可能です。",
+    "faq.drv.q4": "座席数とスーツケースの容量は？",
+    "faq.drv.a4": "標準のセダンタイプで、お客様3名様＋スーツケース2〜3個程度です。ご要望に応じて7人乗りバンの手配も可能です。",
+    "faq.drv.q5": "チャイルドシートはありますか？",
+    "faq.drv.a5": "スリランカでは義務化されておらず、通常は用意がありませんが、お子様連れの場合はより慎重な運転を心がけます。",
+
+    // Tour & Schedule
+    "faq.sch.q1": "ツアー内容の変更はできますか？",
+    "faq.sch.a1": "はい、モデルコースをベースに自由にカスタマイズ可能です。観光地の追加や削除など、ドライバーにお気軽にご相談ください。",
+    "faq.sch.q2": "ドライバーの対応時間は？",
+    "faq.sch.a2": "基本は7:00〜19:00ですが、柔軟に対応可能です。16:00以降の空港到着の場合は、翌朝からのスタートを推奨しています。",
+    "faq.sch.q3": "サファリや列車の予約はできますか？",
+    "faq.sch.a3": "はい、ドライバーが現地で手配します。事前にお伝えいただくか、当日その場で決めることも可能です。",
+    "faq.sch.q4": "シギリヤロックで朝日を見ることはできますか？",
+    "faq.sch.a4": "可能です。早朝（5時頃）は野生動物や道が狭いため、タクシーではなくトゥクトゥクを現地手配します。費用は現地での実費払いとなります。",
+
+    // Tips & Culture
+    "faq.tip.q1": "チップは必要ですか？",
+    "faq.tip.a1": "スリランカにはチップの文化があります。1日の終わりにドライバーへ2,000〜3,000ルピー（約1,000〜2,000円）程度を渡すのが一般的です。",
+
+    // Trip Preparation
+    "faq.pre.q1": "両替はどこでするのが良いですか？",
+    "faq.pre.q1_a": "到着時の空港での両替をお勧めします（レートがどこもほぼ一定のため）。銀行や街の両替所も利用可能です。",
+    "faq.pre.q2": "服装の注意点はありますか？",
+    "faq.pre.q2_a": "寺院では肩や膝を露出した服装は禁止されています。靴を脱ぐ場面が多いため、気になる方は厚手の靴下を持参することをお勧めします。",
   },
 };

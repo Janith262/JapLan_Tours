@@ -27,6 +27,7 @@ const Footer = () => {
               <a href="#history" className="block hover:text-accent transition-colors">{t("footer.heritage")}</a>
               <a href="#tour-builder" className="block hover:text-accent transition-colors">{t("footer.build_tour")}</a>
               <a href="#testimonials" className="block hover:text-accent transition-colors">{t("footer.reviews")}</a>
+              <a href="#faq" className="block hover:text-accent transition-colors">{t("footer.faq")}</a>
             </div>
           </div>
 

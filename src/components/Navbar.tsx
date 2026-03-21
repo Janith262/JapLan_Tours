@@ -17,6 +17,7 @@ const Navbar = () => {
   const links = [
     { label: t("navbar.heritage_sites"), href: "/#history" },
     { label: t("navbar.reviews"), href: "/#testimonials" },
+    { label: t("navbar.faq"), href: "/#faq" },
     { label: t("navbar.contact"), href: "/#footer" },
   ];
 

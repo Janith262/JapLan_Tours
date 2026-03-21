@@ -237,7 +237,7 @@ const Testimonials = () => {
                 {t("review_form.submit_button")}
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[425px]">
               {isSubmitted ? (
                 <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
                   <motion.div
@@ -331,7 +331,7 @@ const Testimonials = () => {
                         required 
                         placeholder={t("review_form.comment_placeholder")} 
                         className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-2 px-4 text-base resize-none"
-                        autoComplete="off"
+                        autoComplete="one-time-code"
                         spellCheck={true}
                       />
                     </div>

@@ -143,18 +143,59 @@ export async function blurFacesInImage(
 
   if (detector) {
     try {
-      const result = detector.detect(canvas);
-      const faces = result?.detections ?? [];
+      const allFaces: any[] = [];
+      const { width, height } = canvas;
 
-      if (faces.length === 0) {
-        console.log("[faceBlur] 0 faces detected even with 0.1 confidence. Blurring whole image as fallback.");
-        // If AI definitively fails to find a face in a 'Blur Requested' photo, default to privacy over clarity.
-        return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
+      // 1. Detect on the whole image
+      const resultWhole = detector.detect(canvas);
+      if (resultWhole?.detections) {
+        allFaces.push(...resultWhole.detections);
       }
 
-      for (const face of faces) {
-        const { originX, originY, width, height } = face.boundingBox;
-        pixelateRect(ctx, originX, originY, width, height, intensity);
+      // 2. Tiled Deep Detection (Sliding Window) 
+      // We take 50% width/height crops and slide them across a 3x3 grid to ensure overlapping boundaries.
+      // This forces the "short-range" model to zoom in natively and detect small distant faces in HD photos.
+      const cropW = Math.floor(width / 2);
+      const cropH = Math.floor(height / 2);
+
+      const xOffsets = [0, Math.floor(width / 4), width - cropW];
+      const yOffsets = [0, Math.floor(height / 4), height - cropH];
+
+      const offscreen = document.createElement("canvas");
+      offscreen.width = cropW;
+      offscreen.height = cropH;
+      const offCtx = offscreen.getContext("2d")!;
+
+      for (const x of xOffsets) {
+        for (const y of yOffsets) {
+          offCtx.clearRect(0, 0, cropW, cropH);
+          offCtx.drawImage(canvas, x, y, cropW, cropH, 0, 0, cropW, cropH);
+          
+          const cropRes = detector.detect(offscreen);
+          if (cropRes?.detections) {
+            for (const d of cropRes.detections) {
+              allFaces.push({
+                boundingBox: {
+                  originX: d.boundingBox.originX + x,
+                  originY: d.boundingBox.originY + y,
+                  width: d.boundingBox.width,
+                  height: d.boundingBox.height
+                }
+              });
+            }
+          }
+        }
+      }
+
+      if (allFaces.length === 0) {
+        console.log("[faceBlur] 0 faces detected even with 10-zone sliding window. Leaving pristine as requested.");
+        return canvas.toDataURL("image/jpeg", 0.92);
+      }
+
+      // Blur all discovered faces!
+      for (const face of allFaces) {
+        const { originX, originY, width: w, height: h } = face.boundingBox;
+        pixelateRect(ctx, originX, originY, w, h, intensity);
       }
 
       return canvas.toDataURL("image/jpeg", 0.92);
@@ -163,8 +204,8 @@ export async function blurFacesInImage(
     }
   }
 
-  // 3. Fallback: blur whole image softly if detector fails to load entirely
-  return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
+  // 3. Fallback: if detector entirely crashes, do not blur whole image as user prefers clear if failed
+  return canvas.toDataURL("image/jpeg", 0.92);
 }
 
 /**

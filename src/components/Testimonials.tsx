@@ -176,6 +176,12 @@ const Testimonials = () => {
     if (isSubmitted) {
       return (
         <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
+          {mobile && (
+            <DrawerClose className="absolute right-4 top-6 p-2 rounded-full opacity-70 transition-opacity hover:opacity-100 focus:outline-none bg-muted/50 hover:bg-muted text-foreground z-10">
+              <X className="h-5 w-5" />
+              <span className="sr-only">Close</span>
+            </DrawerClose>
+          )}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}

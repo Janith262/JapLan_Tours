@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Car, CarFront, Bus, Hotel, Star, Home, Landmark, Trees, Waves, UtensilsCrossed, ChevronLeft, ChevronRight, Mail, MessageCircle } from "lucide-react";
+import { Car, CarFront, Bus, Hotel, Star, Home, Landmark, Trees, Waves, UtensilsCrossed, ChevronLeft, ChevronRight, Mail, MessageCircle, Calendar as CalendarIcon } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { ja } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/useLanguage";
 import { translations } from "@/context/translations";
 import tourBg from "@/assets/tour-builder-bg.jpg";
 
 const CustomTourBuilder = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [step, setStep] = useState(0);
   const [days, setDays] = useState(7);
   const [startDate, setStartDate] = useState("");
@@ -118,13 +123,48 @@ const CustomTourBuilder = () => {
                     <div className="space-y-4 pt-6 border-t border-border/30">
                       <h3 className="font-serif text-2xl font-bold text-foreground text-center">{t("tour.start_date")}</h3>
                       <div className="flex justify-center">
-                        <input
-                          type="date"
-                          value={startDate}
-                          onChange={(e) => setStartDate(e.target.value)}
-                          className="w-full max-w-sm h-14 bg-card/50 border-2 border-border rounded-xl px-4 text-foreground focus:outline-none focus:border-accent transition-colors color-scheme-dark text-center"
-                          min={new Date().toISOString().split('T')[0]}
-                        />
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-full max-w-sm h-14 bg-card/50 border-2 border-border rounded-xl px-4 font-normal focus:outline-none focus:border-accent transition-colors hover:border-accent/50 hover:bg-card/80",
+                                !startDate && "text-muted-foreground",
+                                "flex justify-between items-center text-lg"
+                              )}
+                            >
+                              {startDate ? (
+                                format(new Date(startDate), "PPP", { locale: language === "ja" ? ja : undefined })
+                              ) : (
+                                <span>{language === "ja" ? "日付を選択" : "Select a date"}</span>
+                              )}
+                              <CalendarIcon className="h-5 w-5 opacity-50 text-accent" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0 z-[100]" align="center">
+                            <Calendar
+                              mode="single"
+                              selected={startDate ? new Date(startDate) : undefined}
+                              onSelect={(date) => {
+                                if (date) {
+                                  // Keep the date as local date string to prevent timezone shifts
+                                  const year = date.getFullYear();
+                                  const month = String(date.getMonth() + 1).padStart(2, '0');
+                                  const day = String(date.getDate()).padStart(2, '0');
+                                  setStartDate(`${year}-${month}-${day}`);
+                                } else {
+                                  setStartDate("");
+                                }
+                              }}
+                              disabled={(date) => {
+                                const today = new Date();
+                                today.setHours(0, 0, 0, 0);
+                                return date < today;
+                              }}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
                       </div>
                     </div>
                   </div>

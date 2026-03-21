@@ -37,7 +37,8 @@ async function getFaceDetector(): Promise<FaceDetector | null> {
           delegate: "CPU",
         },
         runningMode: "IMAGE",
-        minDetectionConfidence: 0.4,
+        minDetectionConfidence: 0.1,
+        minSuppressionConfidence: 0.1,
       });
 
       return detector;
@@ -146,8 +147,9 @@ export async function blurFacesInImage(
       const faces = result?.detections ?? [];
 
       if (faces.length === 0) {
-        // No faces found — return unchanged image
-        return canvas.toDataURL("image/jpeg", 0.92);
+        console.log("[faceBlur] 0 faces detected even with 0.1 confidence. Blurring whole image as fallback.");
+        // If AI definitively fails to find a face in a 'Blur Requested' photo, default to privacy over clarity.
+        return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
       }
 
       for (const face of faces) {
@@ -161,7 +163,7 @@ export async function blurFacesInImage(
     }
   }
 
-  // 3. Fallback: blur whole image softly
+  // 3. Fallback: blur whole image softly if detector fails to load entirely
   return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
 }
 

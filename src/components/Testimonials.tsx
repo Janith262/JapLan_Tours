@@ -28,7 +28,7 @@ const Testimonials = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  
+
   // Form State
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -36,7 +36,7 @@ const Testimonials = () => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [hoverRating, setHoverRating] = useState(0);
-  
+
   // Image Upload State
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [images, setImages] = useState<string[]>([]);
@@ -83,7 +83,7 @@ const Testimonials = () => {
 
     for (const file of files) {
       if (!file.type.startsWith("image/")) continue;
-      
+
       const reader = new FileReader();
       const readPromise = new Promise<string>((resolve, reject) => {
         reader.onloadend = async () => {
@@ -97,7 +97,7 @@ const Testimonials = () => {
         reader.onerror = reject;
       });
       reader.readAsDataURL(file);
-      
+
       try {
         const compressedBase64 = await readPromise;
         newImages.push(compressedBase64);
@@ -118,7 +118,7 @@ const Testimonials = () => {
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
-    
+
     // Save to Firestore via the hook
     addReview({
       name,
@@ -153,7 +153,7 @@ const Testimonials = () => {
         setCountry("");
         setCity("");
         setComment("");
-        setRating(5); 
+        setRating(5);
         setImages([]);
         setBlurFacesRequested(false);
       }, 300);
@@ -219,84 +219,84 @@ const Testimonials = () => {
         <form onSubmit={handleSubmitReview} className="space-y-6 py-4">
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">{t("review_form.name_label")}</Label>
-            <Input 
-              id="name" 
-              value={name} 
-              onChange={e => setName(e.target.value)} 
-              required 
-              placeholder={t("review_form.name_placeholder")} 
-              className="w-full bg-background border-border h-11 px-4 text-base" 
-              autoComplete="name" 
+            <Input
+              id="name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+              required
+              placeholder={t("review_form.name_placeholder")}
+              className="w-full bg-background border-border h-11 px-4 text-base"
+              autoComplete="name"
             />
           </div>
           <div className="space-y-2">
-             <Label className="text-sm font-medium">{t("review_form.rating_label")}</Label>
-             <div className="flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button
-                    key={star}
-                    type="button"
-                    onClick={() => setRating(star)}
-                    onMouseEnter={() => setHoverRating(star)}
-                    onMouseLeave={() => setHoverRating(0)}
-                    className="focus:outline-none transition-transform hover:scale-110 select-none [-webkit-tap-highlight-color:transparent]"
-                  >
-                    <Star
-                      size={24}
-                      className={`transition-colors ${(hoverRating || rating) >= star ? "fill-accent text-accent" : "text-muted"}`}
-                    />
-                  </button>
-                ))}
-             </div>
+            <Label className="text-sm font-medium">{t("review_form.rating_label")}</Label>
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => setRating(star)}
+                  onMouseEnter={() => setHoverRating(star)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  className="focus:outline-none transition-transform hover:scale-110 select-none [-webkit-tap-highlight-color:transparent]"
+                >
+                  <Star
+                    size={24}
+                    className={`transition-colors ${(hoverRating || rating) >= star ? "fill-accent text-accent" : "text-muted"}`}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="country" className="text-sm font-medium">{t("review_form.country_label")}</Label>
-              <Input 
-                id="country" 
-                value={country} 
-                onChange={e => setCountry(e.target.value)} 
-                required 
-                placeholder={t("review_form.country_placeholder")} 
-                className="w-full bg-background border-border h-11 px-4 text-base" 
-                autoComplete="country-name" 
+              <Input
+                id="country"
+                value={country}
+                onChange={e => setCountry(e.target.value)}
+                required
+                placeholder={t("review_form.country_placeholder")}
+                className="w-full bg-background border-border h-11 px-4 text-base"
+                autoComplete="country-name"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="city" className="text-sm font-medium">{t("review_form.city")}</Label>
-              <Input 
-                id="city" 
-                value={city} 
-                onChange={e => setCity(e.target.value)} 
-                required 
-                placeholder={t("review_form.city_placeholder")} 
-                className="w-full bg-background border-border h-11 px-4 text-base" 
-                autoComplete="address-level2" 
+              <Input
+                id="city"
+                value={city}
+                onChange={e => setCity(e.target.value)}
+                required
+                placeholder={t("review_form.city_placeholder")}
+                className="w-full bg-background border-border h-11 px-4 text-base"
+                autoComplete="address-level2"
               />
             </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="review_message" className="text-sm font-medium">{t("review_form.comment_label")}</Label>
-            <Textarea 
+            <Textarea
               id="review_message"
-              name="review_message" 
-              value={comment} 
-              onChange={e => setComment(e.target.value)} 
-              required 
-              placeholder={t("review_form.comment_placeholder")} 
+              name="review_message"
+              value={comment}
+              onChange={e => setComment(e.target.value)}
+              required
+              placeholder={t("review_form.comment_placeholder")}
               className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-2 px-4 text-base resize-none"
               autoComplete="one-time-code"
               spellCheck={true}
             />
           </div>
-          
+
           {/* Image Upload Section */}
           <div className="space-y-3 pt-2">
             <div className="flex items-center justify-between">
               <Label className="text-sm font-medium">Add Photos (Optional)</Label>
               <span className="text-xs text-muted-foreground">{images.length}/5</span>
             </div>
-            
+
             <div className="flex flex-wrap gap-2">
               {images.map((img, idx) => (
                 <div key={idx} className="relative w-16 h-16 rounded-md overflow-hidden group border border-border">
@@ -312,7 +312,7 @@ const Testimonials = () => {
                   </div>
                 </div>
               ))}
-              
+
               {images.length < 5 && (
                 <button
                   type="button"
@@ -339,8 +339,8 @@ const Testimonials = () => {
 
             {images.length > 0 && (
               <div className="flex items-start space-x-2 pt-2 pb-1">
-                <Checkbox 
-                  id="blurFaces" 
+                <Checkbox
+                  id="blurFaces"
                   checked={blurFacesRequested}
                   onCheckedChange={(checked) => setBlurFacesRequested(checked as boolean)}
                 />
@@ -408,12 +408,12 @@ const Testimonials = () => {
                   ))}
                 </div>
                 <p className="text-foreground text-lg mb-6 leading-relaxed italic border-l-4 border-accent/30 pl-4">"{review.text}"</p>
-                
+
                 {review.images && review.images.length > 0 && (
                   <div className="flex gap-2 overflow-x-auto pb-4 mb-4 snap-x no-scrollbar">
                     {review.images.map((img, idx) => (
-                      <button 
-                        key={idx} 
+                      <button
+                        key={idx}
                         type="button"
                         onClick={() => setSelectedImage(img)}
                         className="relative w-24 h-24 shrink-0 overflow-hidden rounded-lg border border-border snap-center hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent"
@@ -466,7 +466,7 @@ const Testimonials = () => {
                   {t("review_form.submit_button")}
                 </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent className="sm:max-w-[425px] max-h-[85vh] overflow-y-auto">
                 {renderFormBody(false)}
               </DialogContent>
             </Dialog>
@@ -477,7 +477,7 @@ const Testimonials = () => {
         <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
           <DialogContent className="max-w-4xl p-0 overflow-hidden border-none bg-transparent shadow-none [&>button]:hidden">
             <div className="relative">
-              <button 
+              <button
                 onClick={() => setSelectedImage(null)}
                 className="absolute -top-12 right-0 z-50 p-2 text-white hover:text-white/80 transition-colors bg-black/40 rounded-full hover:bg-black/60 focus:outline-none"
               >

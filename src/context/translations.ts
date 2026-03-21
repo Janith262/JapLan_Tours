@@ -186,6 +186,23 @@ export const translations = {
     // Floating LINE
     "floating_line.label": "Contact us on LINE",
 
+    // Review Form
+    "review_form.submit_button": "Submit a Review",
+    "review_form.title": "Submit Your Review",
+    "review_form.description": "Share your experience with us.",
+    "review_form.name_label": "Name",
+    "review_form.rating_label": "Rating",
+    "review_form.country_label": "Country",
+    "review_form.city": "City",
+    "review_form.city_label": "City",
+    "review_form.comment_label": "Comment",
+    "review_form.name_placeholder": "John Doe",
+    "review_form.country_placeholder": "United States",
+    "review_form.city_placeholder": "New York",
+    "review_form.comment_placeholder": "Tell us about your trip...",
+    "review_form.submit": "Submit Review",
+    "review_form.cancel": "Cancel",
+    "review_form.success_title": "Thank you!",
     "review_form.success_desc": "Your review has been submitted successfully.",
 
     // FAQ Section

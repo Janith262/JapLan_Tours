@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { useAdminData } from "@/hooks/useAdminData";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader, DrawerDescription } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
@@ -196,9 +196,13 @@ const Testimonials = () => {
     return (
       <>
         {mobile ? (
-          <DrawerHeader className="px-0 pt-0 text-left">
+          <DrawerHeader className="px-0 pt-0 text-left relative pr-10">
             <DrawerTitle className="font-serif text-2xl">{t("review_form.title")}</DrawerTitle>
-            <DrawerDescription>{t("review_form.description")}</DrawerDescription>
+            <DrawerDescription className="pr-2">{t("review_form.description")}</DrawerDescription>
+            <DrawerClose className="absolute right-0 top-0 p-2 rounded-full opacity-70 transition-opacity hover:opacity-100 focus:outline-none bg-muted/50 hover:bg-muted text-foreground">
+              <X className="h-5 w-5" />
+              <span className="sr-only">Close</span>
+            </DrawerClose>
           </DrawerHeader>
         ) : (
           <DialogHeader>

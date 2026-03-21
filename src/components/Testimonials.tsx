@@ -322,15 +322,17 @@ const Testimonials = () => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="comment" className="text-sm font-medium">{t("review_form.comment_label")}</Label>
+                      <Label htmlFor="review_message" className="text-sm font-medium">{t("review_form.comment_label")}</Label>
                       <Textarea 
-                        id="comment" 
+                        id="review_message"
+                        name="review_message" 
                         value={comment} 
                         onChange={e => setComment(e.target.value)} 
                         required 
                         placeholder={t("review_form.comment_placeholder")} 
                         className="w-full min-h-[120px] bg-background border-border focus-visible:ring-1 focus-visible:ring-accent py-2 px-4 text-base resize-none"
                         autoComplete="off"
+                        spellCheck={true}
                       />
                     </div>
                     

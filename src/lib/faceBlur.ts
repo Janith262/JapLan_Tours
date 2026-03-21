@@ -7,7 +7,14 @@
  * Falls back to a mild full-image blur if the library fails to load.
  */
 
-import { FaceDetector, FilesetResolver } from "@mediapipe/tasks-vision";
+// We dynamically import the MediaPipe vision package to keep the initial bundle small.
+// CDN WASM assets are fetched lazily the first time blurFacesInImage() is called.
+
+type FaceDetector = {
+  detectForVideo?: unknown;
+  detect: (image: HTMLCanvasElement) => { detections: { boundingBox: { originX: number; originY: number; width: number; height: number } }[] };
+  close: () => void;
+};
 
 let detectorPromise: Promise<FaceDetector | null> | null = null;
 
@@ -16,11 +23,15 @@ async function getFaceDetector(): Promise<FaceDetector | null> {
 
   detectorPromise = (async () => {
     try {
+      // Dynamically import from CDN via esm.sh
+      const vision = await (Function('return import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs")')() as Promise<any>);
+      const { FaceDetector: MPFaceDetector, FilesetResolver } = vision;
+
       const filesetResolver = await FilesetResolver.forVisionTasks(
         "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
       );
 
-      const detector = await FaceDetector.createFromOptions(filesetResolver, {
+      const detector: FaceDetector = await MPFaceDetector.createFromOptions(filesetResolver, {
         baseOptions: {
           modelAssetPath: "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_short_range/float16/1/blaze_face_short_range.tflite",
           delegate: "CPU",
@@ -45,9 +56,7 @@ async function getFaceDetector(): Promise<FaceDetector | null> {
 function loadImageToCanvas(src: string): Promise<HTMLCanvasElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    if (!src.startsWith("data:")) {
-      img.crossOrigin = "anonymous";
-    }
+    img.crossOrigin = "anonymous";
     img.onload = () => {
       const canvas = document.createElement("canvas");
       canvas.width = img.naturalWidth;

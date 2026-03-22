@@ -29,6 +29,7 @@ const FAQ = () => {
       { q: t("faq.drv.q3"), a: t("faq.drv.a3") },
       { q: t("faq.drv.q4"), a: t("faq.drv.a4") },
       { q: t("faq.drv.q5"), a: t("faq.drv.a5") },
+      { q: t("faq.drv.q6"), a: t("faq.drv.a6") },
     ],
     contents: [
       { q: t("faq.sch.q1"), a: t("faq.sch.a1") },

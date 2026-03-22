@@ -63,7 +63,7 @@ const OrganizerSection = () => {
                 <div className="relative h-96 md:h-full w-full overflow-hidden">
                   <img
                     src="/organizer-new.png"
-                    alt="W S P K Gunarathna – JapLan Tours Organizer"
+                    alt="Suranga Kumara – JapLan Tours Organizer"
                     className="h-full w-full object-cover object-center"
                   />
                   {/* Gradient overlay for blend */}
@@ -86,7 +86,7 @@ const OrganizerSection = () => {
                     {t("organizer.role")}
                   </p>
                   <h3 className="font-serif text-3xl md:text-4xl font-bold text-background mb-1">
-                    W S P K Gunarathna
+                    {t("organizer.name")}
                   </h3>
                   <p className="text-background/50 text-sm">{t("organizer.location")}</p>
                 </div>

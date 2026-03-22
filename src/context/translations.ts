@@ -32,8 +32,6 @@ export const translations = {
     "tour.your_interests": "Your interests",
     
     // Vehicles
-    "vehicle.minicar": "Mini Car",
-    "vehicle.minicar_sub": "1-2 Passengers",
     "vehicle.sedan": "Sedan",
     "vehicle.sedan_sub": "1-2 Passengers",
     "vehicle.van": "Luxury Van",
@@ -94,11 +92,12 @@ export const translations = {
     // Organizer
     "organizer.tagline": "Your Guide",
     "organizer.title": "Meet Your Organizer",
+    "organizer.name": "Suranga Kumara",
     "organizer.role": "Tour Organizer & Guide",
     "organizer.location": "Base: Colombo, Sri Lanka",
     "organizer.description_para1": "With over ",
     "organizer.description_para1_bold": "10 years of experience",
-    "organizer.description_para2": " in guiding Japanese tourists, W S P K Gunarathna ensures every journey is ",
+    "organizer.description_para2": " in guiding Japanese tourists, Suranga Kumara ensures every journey is ",
     "organizer.description_para2_bold": "safe, authentic, and memorable.",
     "organizer.description_para3": " He is dedicated to sharing the true essence of Sri Lankan hospitality and culture.",
     "organizer.badge.experience": "10+ Years Experience",
@@ -227,15 +226,17 @@ export const translations = {
 
     // Drivers & Vehicles
     "faq.drv.q1": "How do I contact the driver?",
-    "faq.drv.a1": "After the reservation fee is paid, we will share the LINE contact for the manager and driver Wushan. Communication in English is smooth.",
-    "faq.drv.q2": "Will Ushan be the driver?",
-    "faq.drv.a2": "The driver will be Ushan or a highly-rated, experienced driver personally endorsed by him for their quality service.",
+    "faq.drv.a1": "After the reservation fee is paid, we will share the LINE contact for the manager and driver Suranga. Communication in English is smooth.",
+    "faq.drv.q2": "Will Suranga be the driver?",
+    "faq.drv.a2": "The driver will be Suranga or a highly-rated, experienced driver personally endorsed by him for their quality service.",
     "faq.drv.q3": "Can the driver speak Japanese?",
     "faq.drv.a3": "Communication is primarily in simple English. Hand gestures and translation apps also work well. You can nominate a Japanese-speaking driver for an additional fee.",
     "faq.drv.q4": "How many seats and suitcases fit?",
     "faq.drv.a4": "Standard sedans seat 3 passengers (plus driver) and fit 2-3 suitcases. A 7-seater van can be arranged upon request.",
     "faq.drv.q5": "Are child seats available?",
     "faq.drv.a5": "Child seats are not mandatory or standard in Sri Lanka, but we ensure extra careful driving when children are on board.",
+    "faq.drv.q6": "Are passengers covered by insurance?",
+    "faq.drv.a6": "Yes, all our vehicles are fully insured, including comprehensive passenger insurance, to ensure your safety and peace of mind throughout the journey.",
 
     // Tour & Schedule
     "faq.sch.q1": "Can I change the tour contents?",
@@ -288,8 +289,6 @@ export const translations = {
     "tour.your_interests": "あなたの興味",
     
     // Vehicles
-    "vehicle.minicar": "ミニカー",
-    "vehicle.minicar_sub": "1～2名",
     "vehicle.sedan": "セダン",
     "vehicle.sedan_sub": "1～2名",
     "vehicle.van": "ラグジュアリーバン",
@@ -350,11 +349,12 @@ export const translations = {
     // Organizer
     "organizer.tagline": "あなたのガイド",
     "organizer.title": "主催者に会う",
+    "organizer.name": "スランガ・クマーラ",
     "organizer.role": "ツアー主催者 & ガイド",
     "organizer.location": "拠点：コロンボ、スリランカ",
     "organizer.description_para1": "約",
     "organizer.description_para1_bold": "10年の経験",
-    "organizer.description_para2": "を持ち、W S P K グナラトナは日本人観光客のガイドとして、すべての旅が",
+    "organizer.description_para2": "を持ち、スランガ・クマーラは日本人観光客のガイドとして、すべての旅が",
     "organizer.description_para2_bold": "安全で、本物で、思い出深い",
     "organizer.description_para3": "ものになることを保証します。彼はスリランカのおもてなしと文化の真髄を共有することに専念しています。",
     "organizer.badge.experience": "10年以上の経験",
@@ -483,15 +483,17 @@ export const translations = {
 
     // Drivers & Vehicles
     "faq.drv.q1": "ドライバーへの連絡方法は？",
-    "faq.drv.a1": "予約金のお支払い後、担当者およびドライバー（ウシャン）のLINEをご案内します。英語でのコミュニケーションはスムーズです。",
-    "faq.drv.q2": "ドライバーはウシャンさんですか？",
-    "faq.drv.a2": "ウシャン本人、または彼が太鼓判を押す経験豊富で評価の高い紹介ドライバーが担当いたします。",
+    "faq.drv.a1": "予約金のお支払い後、担当者およびドライバー（スランガ）のLINEをご案内します。英語でのコミュニケーションはスムーズです。",
+    "faq.drv.q2": "ドライバーはスランガさんですか？",
+    "faq.drv.a2": "スランガ本人、または彼が太鼓判を押す経験豊富で評価の高い紹介ドライバーが担当いたします。",
     "faq.drv.q3": "日本語は通じますか？",
     "faq.drv.a3": "基本は簡単な英語での会話となります。ジェスチャーや翻訳アプリで十分意思疎通が可能です。追加料金で日本語対応ドライバーの指名も可能です。",
     "faq.drv.q4": "座席数とスーツケースの容量は？",
     "faq.drv.a4": "標準のセダンタイプで、お客様3名様＋スーツケース2〜3個程度です。ご要望に応じて7人乗りバンの手配も可能です。",
     "faq.drv.q5": "チャイルドシートはありますか？",
     "faq.drv.a5": "スリランカでは義務化されておらず、通常は用意がありませんが、お子様連れの場合はより慎重な運転を心がけます。",
+    "faq.drv.q6": "乗客の保険は含まれていますか？",
+    "faq.drv.a6": "はい、すべての車両は乗客保険を含む完全な保険に加入しており、旅行中ずっとお客様の安全と安心を保証いたします。",
 
     // Tour & Schedule
     "faq.sch.q1": "ツアー内容の変更はできますか？",

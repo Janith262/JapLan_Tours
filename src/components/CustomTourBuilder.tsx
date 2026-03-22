@@ -23,7 +23,6 @@ const CustomTourBuilder = () => {
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
 
   const vehicles = [
-    { id: "minicar", label: t("vehicle.minicar"), sub: t("vehicle.minicar_sub"), icon: Car },
     { id: "sedan", label: t("vehicle.sedan"), sub: t("vehicle.sedan_sub"), icon: CarFront },
     { id: "van", label: t("vehicle.van"), sub: t("vehicle.van_sub"), icon: Bus },
     { id: "minibus", label: t("vehicle.minibus"), sub: t("vehicle.minibus_sub"), icon: Bus },

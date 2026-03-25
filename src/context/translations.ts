@@ -30,7 +30,7 @@ export const translations = {
     "tour.choose_vehicle": "Choose your vehicle",
     "tour.accommodation": "Accommodation style",
     "tour.your_interests": "Your interests",
-    
+
     // Vehicles
     "vehicle.sedan": "Sedan",
     "vehicle.sedan_sub": "1-2 Passengers",
@@ -109,43 +109,43 @@ export const translations = {
     "history.tagline": "Explore",
     "history.title": "History Comes Alive",
     "history.description": "Walk through millennia of civilization at Sri Lanka's most magnificent UNESCO World Heritage sites.",
-    
+
     // Sigiriya
     "site.sigiriya.subtitle": "The Lion Rock",
     "site.sigiriya.name": "Sigiriya",
     "site.sigiriya.description": "A 5th-century rock fortress rising 200m above the jungle, adorned with ancient frescoes and surrounded by elaborate water gardens.",
     "site.sigiriya.long_description": "Sigiriya, the Lion Rock, is an ancient rock fortress and palace ruin situated in the central Matale District of Sri Lanka. Built by King Kasyapa (477 – 495 CE), it is famous for its historical and archaeological significance. The site features a massive column of rock nearly 200 meters high, adorned with beautiful frescoes that are often compared to the Ajanta Caves in India. Halfway up the rock, visitors pass through a colossal gateway in the form of a carved lion. The summit reveals the foundations of a grand palace, offering sweeping views of the surrounding lush water gardens and moats that demonstrate advanced ancient urban planning and hydrology. Today, Sigiriya is a UNESCO World Heritage Site and one of Sri Lanka's most iconic landmarks.",
-    
+
     // Anuradhapura
     "site.anuradhapura.subtitle": "Sacred City",
     "site.anuradhapura.name": "Anuradhapura",
     "site.anuradhapura.description": "One of the oldest continuously inhabited cities in the world, home to sacred Buddhist monasteries and towering dagobas.",
     "site.anuradhapura.long_description": "Anuradhapura was the first capital of Sri Lanka, established in the 4th century BC. As the center of Theravada Buddhism for many centuries, the city remains one of the most sacred places in the Buddhist world. Pilgrims and tourists alike flock to see the Jaya Sri Maha Bodhi, a sacred fig tree grown from a cutting of the original tree under which the Buddha attained enlightenment. The sprawling ancient city is filled with colossal brick stupas (dagobas), intricate stone carvings, royal palaces, and advanced irrigation tanks. Wandering through the ruins of Anuradhapura offers a profound glimpse into a deeply spiritual civilization that thrived over two millennia ago.",
-    
+
     // Polonnaruwa
     "site.polonnaruwa.subtitle": "Medieval Capital",
     "site.polonnaruwa.name": "Polonnaruwa",
     "site.polonnaruwa.description": "A remarkably preserved medieval capital featuring stunning stone-carved Buddha statues and intricate temple ruins.",
     "site.polonnaruwa.long_description": "Following the decline of Anuradhapura, Polonnaruwa became the second royal capital of Sri Lanka in 1070 CE. This well-preserved medieval city offers a much more compact assembly of ruins that can comfortably be explored by bicycle. The highlight is the Gal Vihara, a majestic rock temple featuring four exquisite statues of the Buddha carved into a single granite rock face, showcasing the zenith of ancient Sinhalese sculpture. The archaeological park also encompasses the remains of the Royal Palace, the ornate Quadrangle composed of religious monuments, and Parakrama Samudra, a vast man-made reservoir built by King Parakramabahu I, earning Polonnaruwa its status as a UNESCO World Heritage Site.",
-    
+
     // Kandy
     "site.kandy.subtitle": "Hill Capital",
     "site.kandy.name": "Kandy",
     "site.kandy.description": "The cultural capital nestled in the central highlands, famous for the revered Temple of the Sacred Tooth Relic.",
     "site.kandy.long_description": "Kandy served as the final capital of the ancient kings of Sri Lanka, falling to the British only in 1815. Nestled amidst lush hills and built around a tranquil lake, Kandy is the cultural heart of the island. The city's crown jewel is the Sri Dalada Maligawa (Temple of the Sacred Tooth Relic), which houses the tooth of the Buddha and is an active place of worship and a pivotal pilgrimage site. Every summer, Kandy hosts the Esala Perahera, a vibrant ten-day festival featuring drummers, dancers, and majestic adorned elephants parading through the streets. The city also offers the sprawling Peradeniya Royal Botanical Gardens and breathtaking viewpoint hikes.",
-    
+
     // Galle
     "site.galle.subtitle": "Coastal Fortress",
     "site.galle.name": "Galle Fort",
     "site.galle.description": "A beautifully preserved Dutch colonial fort on the southern coast, blending European architecture with tropical charm.",
     "site.galle.long_description": "Galle Fort, originally built by the Portuguese in 1588 and extensively fortified by the Dutch during the 17th century, is the largest remaining fortress in Asia built by European occupiers. Stepping inside the fort's robust coral and granite walls feels like a journey back in time, with narrow cobblestone streets, colonial-era villas with terracotta roofs, and an iconic white lighthouse overlooking the Indian Ocean. Today, the fort is a vibrant, living monument. Its historic buildings have been transformed into chic boutique hotels, trendy cafes, art galleries, and craft shops, making it a perfect spot for romantic evening strolls along the ramparts at sunset.",
-    
+
     // Dambulla
     "site.dambulla.subtitle": "Golden Temple",
     "site.dambulla.name": "Dambulla",
     "site.dambulla.description": "A magnificent cave temple complex spanning five sanctuaries, adorned with thousands of ancient Buddhist murals and statues.",
     "site.dambulla.long_description": "The Dambulla Cave Temple, also known as the Golden Temple of Dambulla, is the largest and best-preserved cave temple complex in Sri Lanka. Situated on a massive rock outcrop, the site comprises over 80 documented caves, but the main attractions are concentrated within five distinct shrines. Inside these cool, dark caverns, visitors are surrounded by an awe-inspiring collection of over 150 Buddha statues and phenomenal ceiling murals that narrate stories from the Buddha's life. The site has been a sacred pilgrimage destination for over 22 centuries, offering a profound sense of peace and a spectacular panoramic view of the surrounding plains from the rock's terrace.",
-    
+
     // Testimonials
     "testimonials.tagline": "Testimonials",
     "testimonials.title": "Traveler Stories",
@@ -207,7 +207,7 @@ export const translations = {
     // FAQ Section
     "faq.tagline": "FAQ",
     "faq.title": "Frequently Asked Questions",
-    
+
     "faq.cat.reservations": "Reservations & Fees",
     "faq.cat.drivers": "Drivers & Vehicles",
     "faq.cat.contents": "Tour & Schedule",
@@ -287,7 +287,7 @@ export const translations = {
     "tour.choose_vehicle": "車両を選択してください",
     "tour.accommodation": "宿泊スタイル",
     "tour.your_interests": "あなたの興味",
-    
+
     // Vehicles
     "vehicle.sedan": "セダン",
     "vehicle.sedan_sub": "1～2名",
@@ -352,11 +352,11 @@ export const translations = {
     "organizer.name": "スランガ・クマーラ",
     "organizer.role": "ツアー主催者 & ガイド",
     "organizer.location": "拠点：コロンボ、スリランカ",
-    "organizer.description_para1": "ガイドとして",
-    "organizer.description_para1_bold": "確かな経験",
-    "organizer.description_para2": "を持ち、日本人観光客の皆様へ、スランガ・クマーラがすべての旅を",
+    "organizer.description_para1": "豊富な",
+    "organizer.description_para1_bold": "経験",
+    "organizer.description_para2": "を持ち、スランガ・クマーラは日本人観光客のガイドとして、すべての旅が",
     "organizer.description_para2_bold": "安全で、本物で、思い出深い",
-    "organizer.description_para3": "ものにすることをお約束します。彼はスリランカのおもてなしと文化の真髄を共有することに専念しています。",
+    "organizer.description_para3": "ものになることを保証します。彼はスリランカのおもてなしと文化の真髄を共有することに専念しています。",
     "organizer.badge.experience": "経験豊富なガイド",
     "organizer.badge.language": "流暢な日本語",
     "organizer.badge.friendly": "フレンドリーなサポート",
@@ -366,19 +366,19 @@ export const translations = {
     "history.tagline": "探索",
     "history.title": "歴史は生き返る",
     "history.description": "スリランカの最も素晴らしいユネスコ世界遺産サイトで数千年の文明を歩いてください。",
-    
+
     // Sigiriya
     "site.sigiriya.subtitle": "ライオンロック",
     "site.sigiriya.name": "シギリヤ",
     "site.sigiriya.description": "ジャングルの上200mそびえる5世紀の岩の要塞で、古代フレスコ画で装飾され、精巧な庭園に囲まれています。",
     "site.sigiriya.long_description": "ライオンロックとも呼ばれるシギリヤは、スリランカ中央部のマータレー県にある古代の岩の要塞と宮殿の遺跡です。カッサパ王（477年〜495年）によって建設され、その歴史的・考古学的意義で有名です。高さ約200メートルの巨大な岩の柱には、インドのアジャンター石窟群に匹敵する美しいフレスコ画が描かれています。岩の中腹にある巨大なライオンの形をした門を通り抜けると、頂上には広大な宮殿の土台があり、古代の高度な都市計画と水文学を示す周囲の美しい水の庭園のパノラマビューを楽しめます。現在、シギリヤはユネスコの世界遺産であり、スリランカの最も象徴的な名所の一つです。",
-    
+
     // Anuradhapura
     "site.anuradhapura.subtitle": "聖なる都市",
     "site.anuradhapura.name": "アヌラーダプラ",
     "site.anuradhapura.description": "世界で最も古い継続的に人が住んでいる都市の一つで、神聖な仏教寺院と高いダゴバの本拠地です。",
     "site.anuradhapura.long_description": "紀元前4世紀に建設されたアヌラーダプラは、スリランカの最初の首都でした。何世紀にもわたって上座部仏教の中心地として栄え、現在も仏教世界で最も神聖な場所の一つです。多くの巡礼者や観光客が、仏陀が悟りを開いたというブッダガヤの菩提樹の分け木である「ジャヤ・スリ・マハー菩提樹」を訪れます。広大な古代都市には、巨大なレンガ造りの仏塔（ダゴバ）、精巧な石彫刻、王宮、そして高度な灌漑用貯水池があります。アヌラーダプラの遺跡を歩くと、2000年以上前に繁栄した深い精神性を持つ文明の姿を垣間見ることができます。",
-    
+
     // Polonnaruwa
     "site.polonnaruwa.subtitle": "中世の首都",
     "site.polonnaruwa.name": "ポロンナルワ",
@@ -464,7 +464,7 @@ export const translations = {
     // FAQ Section
     "faq.tagline": "よくある質問",
     "faq.title": "よくあるご質問 (FAQ)",
-    
+
     "faq.cat.reservations": "ご予約と料金",
     "faq.cat.drivers": "ドライバーと車両",
     "faq.cat.contents": "ツアー内容と日程",

@@ -58,8 +58,8 @@ const CustomTourBuilder = () => {
 
   return (
     <section id="tour-builder" className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-cover bg-center bg-fixed" style={{ backgroundImage: `url(${tourBg})` }} />
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-cover bg-center bg-scroll md:bg-fixed" style={{ backgroundImage: `url(${tourBg})` }} />
+      <div className="absolute inset-0 bg-black/30" />
 
       <div className="relative z-10 container mx-auto px-6">
         <motion.div

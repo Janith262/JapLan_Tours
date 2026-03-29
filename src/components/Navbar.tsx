@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         <a href="/" className="flex items-center gap-3">
           <img 
-            src="/logo.png" 
+            src="/japlan-logo.svg" 
             alt="JapLan Tours" 
             className="h-10 w-10 object-contain"
           />

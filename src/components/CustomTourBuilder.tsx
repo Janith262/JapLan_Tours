@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { useLanguage } from "@/context/useLanguage";
 import { translations } from "@/context/translations";
 import tourBg from "@/assets/tour-builder-bg.jpg";
+import { toast } from "sonner";
 
 const CustomTourBuilder = () => {
   const { t, language } = useLanguage();
@@ -54,6 +55,24 @@ const CustomTourBuilder = () => {
     if (step === 1) return !!vehicle;
     if (step === 2) return !!accommodation;
     return true;
+  };
+
+  const getTourDetailsMessage = () => {
+    const getEnLang = (key: keyof typeof translations.en) => translations.en[key] || (key as string);
+    const emailVehicleLabel = vehicle ? getEnLang(`vehicle.${vehicle}` as any) : "—";
+    const emailAccommodationLabel = accommodation ? getEnLang(`accommodation.${accommodation}` as any) : "—";
+    const interestsList = selectedInterests.length > 0 
+      ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ") 
+      : getEnLang("itinerary.none_selected" as any);
+    
+    return `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n` +
+      `${getEnLang("email.body_start_date" as any)} ${startDate || "—"}\n` +
+      `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
+      `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
+      `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
+      `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
+      `${getEnLang("email.body_request" as any)}\n\n` +
+      `${getEnLang("email.body_closing" as any)}`;
   };
 
   return (
@@ -231,31 +250,34 @@ const CustomTourBuilder = () => {
                     {/* Send buttons for the final step */}
                     <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-border/50">
                       <Button
-                        onClick={() => {
+                        onClick={async () => {
+                          const plainBody = getTourDetailsMessage();
+                          try {
+                            await navigator.clipboard.writeText(plainBody);
+                            toast.success(language === "ja" ? "詳細をクリップボードにコピーしました！メールアプリが開かない場合は、手動で貼り付けてください。" : "Details copied to clipboard! Paste them manually if your email app doesn't open.", { duration: 5000 });
+                          } catch (err) {
+                            // ignore clipboard error
+                          }
                           const getEnLang = (key: keyof typeof translations.en) => translations.en[key] || (key as string);
-                          const emailVehicleLabel = vehicle ? getEnLang(`vehicle.${vehicle}` as any) : "—";
-                          const emailAccommodationLabel = accommodation ? getEnLang(`accommodation.${accommodation}` as any) : "—";
-                          const interestsList = selectedInterests.length > 0 
-                            ? selectedInterests.map((id) => getEnLang(`interest.${id}` as any)).join(", ") 
-                            : getEnLang("itinerary.none_selected" as any);
-                          const emailBody = encodeURIComponent(
-                            `${getEnLang("email.greeting" as any)}\n\n${getEnLang("email.body_intro" as any)}\n\n` +
-                            `${getEnLang("email.body_start_date" as any)} ${startDate || "—"}\n` +
-                            `${getEnLang("email.body_duration" as any)} ${days} ${getEnLang("tour.days_unit" as any)}\n` +
-                            `${getEnLang("email.body_vehicle" as any)} ${emailVehicleLabel}\n` +
-                            `${getEnLang("email.body_accommodation" as any)} ${emailAccommodationLabel}\n` +
-                            `${getEnLang("email.body_interests" as any)} ${interestsList}\n\n` +
-                            `${getEnLang("email.body_request" as any)}\n\n` +
-                            `${getEnLang("email.body_closing" as any)}`
-                          );
-                          window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${encodeURIComponent(getEnLang("email.subject" as any))}&body=${emailBody}`;
+                          const emailSubject = encodeURIComponent(getEnLang("email.subject" as any));
+                          const emailBody = encodeURIComponent(plainBody);
+                          window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${emailSubject}&body=${emailBody}`;
                         }}
                         className="bg-secondary hover:bg-secondary/90 text-white h-12 rounded-xl text-lg font-semibold flex-1 gap-2"
                       >
                         <Mail size={18} /> {t("button.send_mail")}
                       </Button>
                       <Button
-                        onClick={() => window.open("https://line.me/ti/p/MatnhhMPdf", "_blank")}
+                        onClick={async () => {
+                          const plainBody = getTourDetailsMessage();
+                          try {
+                            await navigator.clipboard.writeText(plainBody);
+                            toast.success(language === "ja" ? "詳細をクリップボードにコピーしました！LINEを開いたらペーストして送信してください。" : "Details copied to clipboard! Please paste them in the LINE chat.", { duration: 5000 });
+                          } catch (err) {
+                            // ignore clipboard error
+                          }
+                          window.open("https://line.me/ti/p/MatnhhMPdf", "_blank");
+                        }}
                         className="bg-[#06C755] hover:bg-[#05b34c] text-white h-12 rounded-xl text-lg font-semibold flex-1 gap-2"
                       >
                         <MessageCircle size={18} /> {t("button.send_line")}

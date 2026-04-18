@@ -41,6 +41,15 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
     
+    // Scheduled Tours Collection
+    match /scheduled_tours/{tourId} {
+      // Publicly readable
+      allow read: if true;
+      
+      // Admin only write access
+      allow write: if isAdmin();
+    }
+    
     // Default deny for anything else
     match /{document=**} {
       allow read, write: if false;

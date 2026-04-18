@@ -44,11 +44,34 @@ export interface CustomSite {
   createdAt: any;
 }
 
+export interface ScheduledTourDay {
+  title: string;
+  desc: string;
+}
+
+export interface ScheduledTourImage {
+  imageUrl: string;
+  caption: string;
+}
+
+export interface ScheduledTour {
+  id: string;
+  heroImage: string;
+  durationDays: string;
+  destinations: string;
+  priceYen: string;
+  days: ScheduledTourDay[];
+  gallery: ScheduledTourImage[];
+  createdAt: any;
+}
+
 export const useAdminData = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [customSites, setCustomSites] = useState<CustomSite[]>([]);
+  const [scheduledTours, setScheduledTours] = useState<ScheduledTour[]>([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(true);
   const [isLoadingSites, setIsLoadingSites] = useState(true);
+  const [isLoadingScheduled, setIsLoadingScheduled] = useState(true);
 
   useEffect(() => {
     // Real-time listener for Reviews
@@ -93,9 +116,34 @@ export const useAdminData = () => {
       }
     );
 
+    // Real-time listener for Scheduled Tours
+    const scheduledRef = firestoreCollection(db, "scheduled_tours");
+    const scheduledQuery = firestoreQuery(scheduledRef, firestoreOrderBy("createdAt", "desc"));
+    const unsubscribeScheduled = firestoreOnSnapshot(
+      scheduledQuery,
+      { includeMetadataChanges: true },
+      (snapshot) => {
+        const fetchedTours = snapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            createdAt: data.createdAt || new Date()
+          };
+        }) as ScheduledTour[];
+        setScheduledTours(fetchedTours);
+        setIsLoadingScheduled(false);
+      },
+      (err) => {
+        console.error("Firestore Error on scheduled_tours:", err);
+        setIsLoadingScheduled(false);
+      }
+    );
+
     return () => {
       unsubscribeReviews();
       unsubscribeSites();
+      unsubscribeScheduled();
     };
   }, []);
 
@@ -186,11 +234,32 @@ export const useAdminData = () => {
     await firestoreDeleteDoc(siteRef);
   };
 
+  // --- SCHEDULED TOURS METHODS ---
+  const addScheduledTour = async (tourData: Omit<ScheduledTour, "id" | "createdAt">) => {
+    const toursRef = firestoreCollection(db, "scheduled_tours");
+    await firestoreAddDoc(toursRef, {
+      ...tourData,
+      createdAt: firestoreServerTimestamp(),
+    });
+  };
+
+  const deleteScheduledTour = async (id: string) => {
+    const tourRef = firestoreDoc(db, "scheduled_tours", id);
+    await firestoreDeleteDoc(tourRef);
+  };
+
+  const updateScheduledTour = async (id: string, tourData: Partial<Omit<ScheduledTour, "id" | "createdAt">>) => {
+    const tourRef = firestoreDoc(db, "scheduled_tours", id);
+    await firestoreUpdateDoc(tourRef, tourData);
+  };
+
   return {
     reviews,
     customSites,
+    scheduledTours,
     isLoadingReviews,
     isLoadingSites,
+    isLoadingScheduled,
     addReview,
     approveReview,
     deleteReview,
@@ -198,5 +267,8 @@ export const useAdminData = () => {
     updateReviewApprovedImages,
     addSite,
     deleteSite,
+    addScheduledTour,
+    updateScheduledTour,
+    deleteScheduledTour,
   };
 };

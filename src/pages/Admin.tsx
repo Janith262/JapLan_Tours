@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { LogIn, Database, LogOut, Map } from "lucide-react";
+import { LogIn, Database, LogOut, Map, CalendarDays } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import ReviewsManager from "@/components/admin/ReviewsManager";
 import SitesManager from "@/components/admin/SitesManager";
+import ScheduledToursManager from "@/components/admin/ScheduledToursManager";
 import { useToast } from "@/components/ui/use-toast";
 
 import { auth } from "@/lib/firebase";
@@ -15,7 +16,7 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [activeTab, setActiveTab] = useState<"reviews" | "sites">("reviews");
+  const [activeTab, setActiveTab] = useState<"reviews" | "sites" | "scheduledTours">("reviews");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -137,12 +138,20 @@ const Admin = () => {
             >
               <Map size={18} /> Heritage Sites
             </Button>
+            <Button 
+              variant={activeTab === "scheduledTours" ? "secondary" : "ghost"} 
+              className={`w-full justify-start gap-3 ${activeTab === "scheduledTours" ? "bg-accent/10 text-accent font-semibold" : ""}`}
+              onClick={() => setActiveTab("scheduledTours")}
+            >
+              <CalendarDays size={18} /> Scheduled Tours
+            </Button>
           </div>
           
           {/* Main Content Area */}
           <div className="flex-1 bg-card rounded-2xl shadow-sm border border-border p-6 md:p-8">
             {activeTab === "reviews" && <ReviewsManager />}
             {activeTab === "sites" && <SitesManager />}
+            {activeTab === "scheduledTours" && <ScheduledToursManager />}
           </div>
           
         </div>

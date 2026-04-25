@@ -394,7 +394,15 @@ const ReviewsManager = () => {
                 </Button>
               )}
 
-              <Button variant="destructive" onClick={() => deleteReview(review.id)} className="gap-2 text-sm">
+              <Button 
+                variant="destructive" 
+                onClick={() => {
+                  if (window.confirm("Are you sure you want to delete this review?")) {
+                    deleteReview(review.id);
+                  }
+                }} 
+                className="gap-2 text-sm"
+              >
                 <Trash2 size={16} /> Delete
               </Button>
             </div>

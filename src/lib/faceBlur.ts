@@ -37,8 +37,8 @@ async function getFaceDetector(): Promise<FaceDetector | null> {
           delegate: "CPU",
         },
         runningMode: "IMAGE",
-        minDetectionConfidence: 0.1,
-        minSuppressionConfidence: 0.1,
+        minDetectionConfidence: 0.5,
+        minSuppressionConfidence: 0.5,
       });
 
       return detector;

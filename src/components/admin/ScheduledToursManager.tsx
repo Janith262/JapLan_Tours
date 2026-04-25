@@ -39,6 +39,7 @@ const ScheduledToursManager = () => {
 
   // Form State
   const [heroImage, setHeroImage] = useState("");
+  const [heroImageMobile, setHeroImageMobile] = useState("");
   const [durationDays, setDurationDays] = useState("");
   const [durationDaysJa, setDurationDaysJa] = useState("");
   const [destinations, setDestinations] = useState("");
@@ -53,6 +54,7 @@ const ScheduledToursManager = () => {
 
   const handleEdit = (tour: any) => {
     setHeroImage(tour.heroImage || "");
+    setHeroImageMobile(tour.heroImageMobile || "");
     setDurationDays(tour.durationDays || "");
     setDurationDaysJa(tour.durationDaysJa || "");
     setDestinations(tour.destinations || "");
@@ -101,6 +103,20 @@ const ScheduledToursManager = () => {
     reader.readAsDataURL(file);
   };
 
+  const handleHeroMobileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsCompressing(true);
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const compressed = await compressImage(reader.result as string, 800, 0.7);
+      setHeroImageMobile(compressed);
+      setIsCompressing(false);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleGalleryImageUpload = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -133,6 +149,7 @@ const ScheduledToursManager = () => {
       if (editingTourId) {
         await updateScheduledTour(editingTourId, {
           heroImage,
+          heroImageMobile,
           durationDays,
           durationDaysJa,
           destinations,
@@ -144,6 +161,7 @@ const ScheduledToursManager = () => {
       } else {
         await addScheduledTour({
           heroImage,
+          heroImageMobile,
           durationDays,
           durationDaysJa,
           destinations,
@@ -156,6 +174,7 @@ const ScheduledToursManager = () => {
 
       // Reset
       setHeroImage("");
+      setHeroImageMobile("");
       setDurationDays("");
       setDurationDaysJa("");
       setDestinations("");
@@ -180,7 +199,7 @@ const ScheduledToursManager = () => {
         <Button onClick={() => { 
             setIsAdding(!isAdding); 
             if (!isAdding) { /* going to add mode, clear edit state */
-              setEditingTourId(null); setHeroImage(""); setDurationDays(""); setDurationDaysJa(""); setDestinations(""); setDestinationsJa(""); setPriceYen(""); setDays([{ title: "■Day 1", desc: "" }]); setGallery([]);
+              setEditingTourId(null); setHeroImage(""); setHeroImageMobile(""); setDurationDays(""); setDurationDaysJa(""); setDestinations(""); setDestinationsJa(""); setPriceYen(""); setDays([{ title: "■Day 1", desc: "" }]); setGallery([]);
             }
           }} className="gap-2">
           {isAdding ? "Cancel" : <><Plus size={16} /> Add New Tour</>}
@@ -194,24 +213,43 @@ const ScheduledToursManager = () => {
           <div className="space-y-4">
             <h3 className="font-semibold text-lg border-b pb-2">Primary Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-               <div className="space-y-2 md:col-span-2">
-                <Label>Hero Background Image</Label>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Input type="file" accept="image/*" onChange={handleHeroUpload} className="cursor-pointer" />
+                <div className="space-y-2">
+                 <Label>Hero Background Image (Desktop/Landscape)</Label>
+                 <div className="flex flex-col sm:flex-row gap-4">
+                   <Input type="file" accept="image/*" onChange={handleHeroUpload} className="cursor-pointer" required={!editingTourId && !heroImage} />
+                 </div>
+                 {heroImage && (
+                   <div className="mt-4 relative rounded-lg border border-border overflow-hidden h-32 bg-muted/50 flex items-center justify-center">
+                     {isCompressing ? <span className="animate-pulse text-sm">Compressing...</span> : (
+                       <>
+                         <img src={heroImage} alt="Preview" className="w-full h-full object-cover" />
+                         <Button type="button" variant="destructive" size="icon" className="absolute top-2 right-2 h-8 w-8 rounded-full" onClick={() => setHeroImage("")}>
+                           <Trash2 size={14} />
+                         </Button>
+                       </>
+                     )}
+                   </div>
+                 )}
                 </div>
-                {heroImage && (
-                  <div className="mt-4 relative rounded-lg border border-border overflow-hidden h-40 bg-muted/50 flex items-center justify-center">
-                    {isCompressing ? <span className="animate-pulse text-sm">Compressing...</span> : (
-                      <>
-                        <img src={heroImage} alt="Preview" className="w-full h-full object-cover" />
-                        <Button type="button" variant="destructive" size="icon" className="absolute top-2 right-2 h-8 w-8 rounded-full" onClick={() => setHeroImage("")}>
-                          <Trash2 size={14} />
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
+
+                <div className="space-y-2">
+                 <Label>Mobile Hero Image (Portrait - Optional)</Label>
+                 <div className="flex flex-col sm:flex-row gap-4">
+                   <Input type="file" accept="image/*" onChange={handleHeroMobileUpload} className="cursor-pointer" />
+                 </div>
+                 {heroImageMobile && (
+                   <div className="mt-4 relative rounded-lg border border-border overflow-hidden h-32 bg-muted/50 flex items-center justify-center w-24 mx-auto md:mx-0">
+                     {isCompressing ? <span className="animate-pulse text-sm">...</span> : (
+                       <>
+                         <img src={heroImageMobile} alt="Mobile Preview" className="w-full h-full object-cover" />
+                         <Button type="button" variant="destructive" size="icon" className="absolute top-1 right-1 h-6 w-6 rounded-full" onClick={() => setHeroImageMobile("")}>
+                           <Trash2 size={12} />
+                         </Button>
+                       </>
+                     )}
+                   </div>
+                 )}
+                </div>
 
               <div className="space-y-2">
                 <Label>Duration (e.g., "3 days")</Label>

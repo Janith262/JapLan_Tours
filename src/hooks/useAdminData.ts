@@ -60,6 +60,7 @@ export interface ScheduledTourImage {
 export interface ScheduledTour {
   id: string;
   heroImage: string;
+  heroImageMobile?: string;
   durationDays: string;
   durationDaysJa?: string;
   destinations: string;

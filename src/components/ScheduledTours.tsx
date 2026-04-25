@@ -37,7 +37,16 @@ const ScheduledTours = () => {
               return (
                 <div key={tour.id} className="relative w-full min-h-[400px] md:min-h-[500px] flex flex-col justify-center rounded-sm overflow-hidden group shadow-lg">
                    {/* Background Image */}
-                   <img src={tour.heroImage} alt={displayDestinations} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                   {tour.heroImageMobile ? (
+                     <>
+                       {/* Desktop Image */}
+                       <img src={tour.heroImage} alt={displayDestinations} className="hidden md:block absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                       {/* Mobile Image */}
+                       <img src={tour.heroImageMobile} alt={displayDestinations} className="block md:hidden absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                     </>
+                   ) : (
+                     <img src={tour.heroImage} alt={displayDestinations} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                   )}
                    
                    {/* Dark Overlay */}
                    <div className="absolute inset-0 bg-black/40 transition-colors duration-300 group-hover:bg-black/50" />

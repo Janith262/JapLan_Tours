@@ -319,7 +319,15 @@ const ScheduledToursManager = () => {
                     <Button variant="secondary" size="sm" onClick={() => handleEdit(tour)}>
                       <Edit size={16} className="mr-2" /> Edit
                     </Button>
-                    <Button variant="destructive" size="sm" onClick={() => deleteScheduledTour(tour.id)}>
+                    <Button 
+                      variant="destructive" 
+                      size="sm" 
+                      onClick={() => {
+                        if (window.confirm("Are you sure you want to delete this scheduled tour?")) {
+                          deleteScheduledTour(tour.id);
+                        }
+                      }}
+                    >
                       <Trash2 size={16} className="mr-2" /> Delete
                     </Button>
                   </div>

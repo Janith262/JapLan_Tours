@@ -221,7 +221,16 @@ const SitesManager = () => {
                     <ImageIcon className="text-muted-foreground/50 opacity-50" size={48} />
                   )}
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Button variant="destructive" size="sm" onClick={() => deleteSite(site.id)} className="gap-2">
+                    <Button 
+                      variant="destructive" 
+                      size="sm" 
+                      onClick={() => {
+                        if (window.confirm(`Are you sure you want to delete "${site.name}"?`)) {
+                          deleteSite(site.id);
+                        }
+                      }} 
+                      className="gap-2"
+                    >
                       <Trash2 size={16} /> Delete Site
                     </Button>
                   </div>

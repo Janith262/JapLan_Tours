@@ -16,7 +16,7 @@ const ScheduledTours = () => {
     <section className="py-20 bg-background" id="scheduled-tours">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4">{t('planYourTour') || "Plan Your Tour"}</h2>
+          <h2 className="text-3xl md:text-5xl font-serif font-bold text-foreground mb-4">{t('navbar.plan_tour') || "Plan Your Tour"}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-2">
              {language === 'ja' 
                 ? "私たちが厳選した特別ツアーをご覧ください。すべての旅行プランは心を込めて作られています。"

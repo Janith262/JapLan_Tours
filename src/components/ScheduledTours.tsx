@@ -35,7 +35,7 @@ const ScheduledTours = () => {
               const displayDestinations = language === 'ja' && tour.destinationsJa ? tour.destinationsJa : tour.destinations;
               
               return (
-                <div key={tour.id} className="relative w-full h-[400px] md:h-[500px] rounded-sm overflow-hidden group shadow-lg">
+                <div key={tour.id} className="relative w-full min-h-[400px] md:min-h-[500px] flex flex-col justify-center rounded-sm overflow-hidden group shadow-lg">
                    {/* Background Image */}
                    <img src={tour.heroImage} alt={displayDestinations} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                    
@@ -43,23 +43,23 @@ const ScheduledTours = () => {
                    <div className="absolute inset-0 bg-black/40 transition-colors duration-300 group-hover:bg-black/50" />
                    
                    {/* Content Overlay */}
-                   <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-6 z-10">
-                      <h3 className="text-5xl md:text-6xl font-bold mb-3 drop-shadow-md">{displayDuration}</h3>
-                      <p className="text-xl md:text-2xl font-medium mb-6 drop-shadow-md">{displayDestinations}</p>
+                   <div className="relative z-10 flex flex-col items-center justify-center text-white text-center p-6 sm:p-8 md:p-12 h-full w-full py-16 md:py-24">
+                      <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-md leading-tight max-w-4xl">{displayDuration}</h3>
+                      <p className="text-lg md:text-2xl font-medium mb-6 drop-shadow-md max-w-3xl leading-snug">{displayDestinations}</p>
                       {tour.priceYen && (
-                        <p className="text-lg md:text-xl font-bold mb-6 text-green-400 drop-shadow-md">{tour.priceYen}</p>
+                        <p className="text-base sm:text-lg md:text-xl font-bold mb-8 text-green-400 drop-shadow-md">{tour.priceYen}</p>
                       )}
                       
-                      <div className="flex flex-col sm:flex-row gap-4">
+                      <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                         <Button 
-                          className="bg-[#3FA162] hover:bg-[#348A52] text-white border-0 px-8 py-6 text-lg rounded-sm shadow-md transition-all hover:scale-105"
+                          className="bg-[#3FA162] hover:bg-[#348A52] text-white border-0 px-6 sm:px-8 py-6 text-sm sm:text-base md:text-lg rounded-sm shadow-md transition-all hover:scale-105 h-auto whitespace-normal"
                           onClick={() => setSelectedTour(tour)}
                         >
                           {language === 'ja' ? '詳細はこちらをクリック' : 'Click here for details'}
                         </Button>
                         
                         <Button 
-                          className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 px-8 py-6 text-lg rounded-sm shadow-md transition-all hover:scale-105 gap-2 font-semibold"
+                          className="bg-accent hover:bg-accent/90 text-accent-foreground border-0 px-6 sm:px-8 py-6 text-sm sm:text-base md:text-lg rounded-sm shadow-md transition-all hover:scale-105 gap-2 font-semibold h-auto whitespace-normal"
                           onClick={() => {
                             const subject = encodeURIComponent(`Booking Request: ${tour.durationDays} - ${tour.destinations}`);
                             const body = encodeURIComponent(
@@ -74,7 +74,7 @@ const ScheduledTours = () => {
                             window.location.href = `mailto:japlantours.srilanka@gmail.com?subject=${subject}&body=${body}`;
                           }}
                         >
-                          <Mail size={20} /> {language === 'ja' ? '今すぐ予約' : 'Book Now'}
+                          <Mail size={20} className="shrink-0" /> {language === 'ja' ? '今すぐ予約' : 'Book Now'}
                         </Button>
                       </div>
                    </div>

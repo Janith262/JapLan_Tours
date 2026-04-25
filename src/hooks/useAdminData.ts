@@ -47,18 +47,23 @@ export interface CustomSite {
 export interface ScheduledTourDay {
   title: string;
   desc: string;
+  titleJa?: string;
+  descJa?: string;
 }
 
 export interface ScheduledTourImage {
   imageUrl: string;
   caption: string;
+  captionJa?: string;
 }
 
 export interface ScheduledTour {
   id: string;
   heroImage: string;
   durationDays: string;
+  durationDaysJa?: string;
   destinations: string;
+  destinationsJa?: string;
   priceYen: string;
   days: ScheduledTourDay[];
   gallery: ScheduledTourImage[];

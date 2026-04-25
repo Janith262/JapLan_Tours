@@ -40,7 +40,9 @@ const ScheduledToursManager = () => {
   // Form State
   const [heroImage, setHeroImage] = useState("");
   const [durationDays, setDurationDays] = useState("");
+  const [durationDaysJa, setDurationDaysJa] = useState("");
   const [destinations, setDestinations] = useState("");
+  const [destinationsJa, setDestinationsJa] = useState("");
   const [priceYen, setPriceYen] = useState("");
   
   // Dynamic Days Array
@@ -52,7 +54,9 @@ const ScheduledToursManager = () => {
   const handleEdit = (tour: any) => {
     setHeroImage(tour.heroImage || "");
     setDurationDays(tour.durationDays || "");
+    setDurationDaysJa(tour.durationDaysJa || "");
     setDestinations(tour.destinations || "");
+    setDestinationsJa(tour.destinationsJa || "");
     setPriceYen(tour.priceYen || "");
     setDays(tour.days && tour.days.length > 0 ? tour.days : [{ title: "■Day 1", desc: "" }]);
     setGallery(tour.gallery || []);
@@ -130,7 +134,9 @@ const ScheduledToursManager = () => {
         await updateScheduledTour(editingTourId, {
           heroImage,
           durationDays,
+          durationDaysJa,
           destinations,
+          destinationsJa,
           priceYen,
           days,
           gallery,
@@ -139,7 +145,9 @@ const ScheduledToursManager = () => {
         await addScheduledTour({
           heroImage,
           durationDays,
+          durationDaysJa,
           destinations,
+          destinationsJa,
           priceYen,
           days,
           gallery,
@@ -149,7 +157,9 @@ const ScheduledToursManager = () => {
       // Reset
       setHeroImage("");
       setDurationDays("");
+      setDurationDaysJa("");
       setDestinations("");
+      setDestinationsJa("");
       setPriceYen("");
       setDays([{ title: "■Day 1", desc: "" }]);
       setGallery([]);
@@ -170,7 +180,7 @@ const ScheduledToursManager = () => {
         <Button onClick={() => { 
             setIsAdding(!isAdding); 
             if (!isAdding) { /* going to add mode, clear edit state */
-              setEditingTourId(null); setHeroImage(""); setDurationDays(""); setDestinations(""); setPriceYen(""); setDays([{ title: "■Day 1", desc: "" }]); setGallery([]);
+              setEditingTourId(null); setHeroImage(""); setDurationDays(""); setDurationDaysJa(""); setDestinations(""); setDestinationsJa(""); setPriceYen(""); setDays([{ title: "■Day 1", desc: "" }]); setGallery([]);
             }
           }} className="gap-2">
           {isAdding ? "Cancel" : <><Plus size={16} /> Add New Tour</>}
@@ -205,11 +215,17 @@ const ScheduledToursManager = () => {
 
               <div className="space-y-2">
                 <Label>Duration (e.g., "3 days")</Label>
-                <Input required value={durationDays} onChange={e => setDurationDays(e.target.value)} />
+                <div className="flex flex-col gap-2">
+                  <Input required placeholder="English" value={durationDays} onChange={e => setDurationDays(e.target.value)} />
+                  <Input placeholder="Japanese (Optional)" value={durationDaysJa} onChange={e => setDurationDaysJa(e.target.value)} />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label>Destinations (e.g., "Sigiriya/Dambulla/Kandy")</Label>
-                <Input required value={destinations} onChange={e => setDestinations(e.target.value)} />
+                <div className="flex flex-col gap-2">
+                  <Input required placeholder="English" value={destinations} onChange={e => setDestinations(e.target.value)} />
+                  <Input placeholder="Japanese (Optional)" value={destinationsJa} onChange={e => setDestinationsJa(e.target.value)} />
+                </div>
               </div>
               <div className="space-y-2">
                 <Label>Price in Yen (e.g., "¥ 75,000")</Label>
@@ -232,10 +248,13 @@ const ScheduledToursManager = () => {
                  <div key={idx} className="p-4 border rounded-lg bg-background relative pr-12">
                    <div className="space-y-2">
                      <Label>Day Title</Label>
-                     <Input required value={day.title} onChange={e => { const newDays = [...days]; newDays[idx].title = e.target.value; setDays(newDays); }} />
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                       <Input required placeholder="English Title" value={day.title} onChange={e => { const newDays = [...days]; newDays[idx].title = e.target.value; setDays(newDays); }} />
+                       <Input placeholder="Japanese Title (Optional)" value={day.titleJa || ""} onChange={e => { const newDays = [...days]; newDays[idx].titleJa = e.target.value; setDays(newDays); }} />
+                     </div>
                      
                      <div className="flex items-center justify-between">
-                       <Label>Day Description</Label>
+                       <Label>Day Description (English)</Label>
                        <div className="flex gap-1 border border-border rounded-md p-1 bg-muted/50">
                           <Button type="button" variant="ghost" size="icon" className="h-6 w-6" onClick={() => insertFormatting(idx, "<b>", "</b>")} title="Bold">
                              <Bold size={14} />
@@ -248,7 +267,12 @@ const ScheduledToursManager = () => {
                           </Button>
                        </div>
                      </div>
-                     <Textarea id={`day-desc-${idx}`} required className="min-h-[100px]" placeholder="Activities schedule..." value={day.desc} onChange={e => { const newDays = [...days]; newDays[idx].desc = e.target.value; setDays(newDays); }} />
+                     <Textarea id={`day-desc-${idx}`} required className="min-h-[100px]" placeholder="English schedule..." value={day.desc} onChange={e => { const newDays = [...days]; newDays[idx].desc = e.target.value; setDays(newDays); }} />
+                     
+                     <div className="mt-4">
+                       <Label className="text-muted-foreground">Day Description (Japanese - Optional)</Label>
+                       <Textarea className="min-h-[100px] mt-2" placeholder="Japanese schedule (can use simple HTML formatting like <b>...</b> manually)..." value={day.descJa || ""} onChange={e => { const newDays = [...days]; newDays[idx].descJa = e.target.value; setDays(newDays); }} />
+                     </div>
                    </div>
                    
                    {days.length > 1 && (
@@ -284,7 +308,10 @@ const ScheduledToursManager = () => {
                    </div>
                    <div className="space-y-2">
                      <Label>Caption</Label>
-                     <Input placeholder="e.g. Sigiriya Rock" value={img.caption} onChange={e => { const newG = [...gallery]; newG[idx].caption = e.target.value; setGallery(newG); }} />
+                     <div className="flex flex-col gap-2">
+                       <Input placeholder="English e.g. Sigiriya Rock" value={img.caption} onChange={e => { const newG = [...gallery]; newG[idx].caption = e.target.value; setGallery(newG); }} />
+                       <Input placeholder="Japanese (Optional)" value={img.captionJa || ""} onChange={e => { const newG = [...gallery]; newG[idx].captionJa = e.target.value; setGallery(newG); }} />
+                     </div>
                    </div>
                    <Button type="button" variant="destructive" size="icon" className="absolute top-2 right-2 h-6 w-6" onClick={() => setGallery(gallery.filter((_, i) => i !== idx))}>
                      <Trash2 size={12} />
@@ -334,7 +361,7 @@ const ScheduledToursManager = () => {
                 </div>
               </div>
               <div className="p-4 space-y-2">
-                <h3 className="font-bold capitalize">{tour.destinations}</h3>
+                <h3 className="font-bold capitalize text-foreground">{tour.destinationsJa ? `${tour.destinations} / ${tour.destinationsJa}` : tour.destinations}</h3>
                 <p className="text-sm text-muted-foreground">{tour.priceYen}</p>
                 <div className="flex justify-between text-xs text-muted-foreground pt-2 border-t">
                    <span>{tour.days.length} Days Planner</span>

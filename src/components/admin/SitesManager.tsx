@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 const SitesManager = () => {
-  const { customSites, addSite, deleteSite, isLoadingSites } = useAdminData();
+  const { customSites, addSite, deleteSite, isLoadingSites } = useAdminData({ loadSites: true, loadReviews: false, loadScheduled: false });
   const [isAdding, setIsAdding] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
 

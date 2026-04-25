@@ -109,7 +109,7 @@ interface ImagePanelProps {
 }
 
 const ImagePanel = ({ reviewId, originalImages, blurRequested, approvedImages: existingApproved, onApproved }: ImagePanelProps) => {
-  const { updateReviewApprovedImages } = useAdminData();
+  const { updateReviewApprovedImages } = useAdminData({ loadScheduled: false, loadReviews: false, loadSites: false });
 
   const [blurredPreviews, setBlurredPreviews] = useState<string[]>(existingApproved ?? []);
   const [isBlurring, setIsBlurring] = useState(false);
@@ -301,7 +301,7 @@ const ImagePanel = ({ reviewId, originalImages, blurRequested, approvedImages: e
 /* Main reviews manager                                     */
 /* ──────────────────────────────────────────────────────── */
 const ReviewsManager = () => {
-  const { reviews, approveReview, deleteReview, isLoadingReviews } = useAdminData();
+  const { reviews, approveReview, deleteReview, isLoadingReviews } = useAdminData({ loadReviews: true, loadSites: false, loadScheduled: false });
   const [expandedImages, setExpandedImages] = useState<Set<string>>(new Set());
 
   const toggleExpand = (id: string) => {

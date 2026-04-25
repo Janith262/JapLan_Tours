@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
 const ScheduledToursManager = () => {
-  const { scheduledTours, addScheduledTour, updateScheduledTour, deleteScheduledTour, isLoadingScheduled } = useAdminData();
+  const { scheduledTours, addScheduledTour, updateScheduledTour, deleteScheduledTour, isLoadingScheduled } = useAdminData({ loadScheduled: true, loadReviews: false, loadSites: false });
   const [isAdding, setIsAdding] = useState(false);
   const [editingTourId, setEditingTourId] = useState<string | null>(null);
   const [isCompressing, setIsCompressing] = useState(false);

@@ -5,7 +5,7 @@ import { Mail } from "lucide-react";
 import ScheduledTourModal from "./ScheduledTourModal";
 
 const ScheduledTours = () => {
-  const { scheduledTours, isLoadingScheduled } = useAdminData();
+  const { scheduledTours, isLoadingScheduled } = useAdminData({ loadScheduled: true, loadReviews: false, loadSites: false });
   const [selectedTour, setSelectedTour] = useState<ScheduledTour | null>(null);
 
   if (isLoadingScheduled || scheduledTours.length === 0) return null;

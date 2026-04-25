@@ -65,87 +65,104 @@ export interface ScheduledTour {
   createdAt: any;
 }
 
-export const useAdminData = () => {
+export interface AdminDataOptions {
+  loadReviews?: boolean;
+  loadSites?: boolean;
+  loadScheduled?: boolean;
+}
+
+export const useAdminData = (options?: AdminDataOptions) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [customSites, setCustomSites] = useState<CustomSite[]>([]);
   const [scheduledTours, setScheduledTours] = useState<ScheduledTour[]>([]);
-  const [isLoadingReviews, setIsLoadingReviews] = useState(true);
-  const [isLoadingSites, setIsLoadingSites] = useState(true);
-  const [isLoadingScheduled, setIsLoadingScheduled] = useState(true);
+  const [isLoadingReviews, setIsLoadingReviews] = useState(options?.loadReviews ?? true);
+  const [isLoadingSites, setIsLoadingSites] = useState(options?.loadSites ?? true);
+  const [isLoadingScheduled, setIsLoadingScheduled] = useState(options?.loadScheduled ?? true);
 
   useEffect(() => {
-    // Real-time listener for Reviews
-    const reviewsRef = firestoreCollection(db, "reviews");
-    const reviewsQuery = firestoreQuery(reviewsRef, firestoreOrderBy("createdAt", "desc"));
-    const unsubscribeReviews = firestoreOnSnapshot(
-      reviewsQuery, 
-      { includeMetadataChanges: true },
-      (snapshot) => {
-        const fetchedReviews = snapshot.docs.map(doc => {
-          const data = doc.data();
-          // Provide a fallback for serverTimestamp while it's pending (null)
-          return {
-            id: doc.id,
-            ...data,
-            createdAt: data.createdAt || new Date()
-          };
-        }) as Review[];
-        setReviews(fetchedReviews);
-        setIsLoadingReviews(false);
-      }
-    );
+    let unsubscribeReviews: () => void = () => {};
+    let unsubscribeSites: () => void = () => {};
+    let unsubscribeScheduled: () => void = () => {};
 
-    // Real-time listener for Sites
-    const sitesRef = firestoreCollection(db, "sites");
-    const sitesQuery = firestoreQuery(sitesRef, firestoreOrderBy("createdAt", "desc"));
-    const unsubscribeSites = firestoreOnSnapshot(
-      sitesQuery,
-      { includeMetadataChanges: true },
-      (snapshot) => {
-        const fetchedSites = snapshot.docs.map(doc => {
-          const data = doc.data();
-          // Provide a fallback for serverTimestamp while it's pending (null)
-          return {
-            id: doc.id,
-            ...data,
-            createdAt: data.createdAt || new Date()
-          };
-        }) as CustomSite[];
-        setCustomSites(fetchedSites);
-        setIsLoadingSites(false);
-      }
-    );
+    if (options?.loadReviews !== false) {
+      const reviewsRef = firestoreCollection(db, "reviews");
+      const reviewsQuery = firestoreQuery(reviewsRef, firestoreOrderBy("createdAt", "desc"));
+      unsubscribeReviews = firestoreOnSnapshot(
+        reviewsQuery, 
+        { includeMetadataChanges: true },
+        (snapshot) => {
+          const fetchedReviews = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              createdAt: data.createdAt || new Date()
+            };
+          }) as Review[];
+          setReviews(fetchedReviews);
+          setIsLoadingReviews(false);
+        }
+      );
+    } else {
+      setIsLoadingReviews(false);
+    }
 
-    // Real-time listener for Scheduled Tours
-    const scheduledRef = firestoreCollection(db, "scheduled_tours");
-    const scheduledQuery = firestoreQuery(scheduledRef, firestoreOrderBy("createdAt", "desc"));
-    const unsubscribeScheduled = firestoreOnSnapshot(
-      scheduledQuery,
-      { includeMetadataChanges: true },
-      (snapshot) => {
-        const fetchedTours = snapshot.docs.map(doc => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            ...data,
-            createdAt: data.createdAt || new Date()
-          };
-        }) as ScheduledTour[];
-        setScheduledTours(fetchedTours);
-        setIsLoadingScheduled(false);
-      },
-      (err) => {
-        console.error("Firestore Error on scheduled_tours:", err);
-        setIsLoadingScheduled(false);
-      }
-    );
+    if (options?.loadSites !== false) {
+      const sitesRef = firestoreCollection(db, "sites");
+      const sitesQuery = firestoreQuery(sitesRef, firestoreOrderBy("createdAt", "desc"));
+      unsubscribeSites = firestoreOnSnapshot(
+        sitesQuery,
+        { includeMetadataChanges: true },
+        (snapshot) => {
+          const fetchedSites = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              createdAt: data.createdAt || new Date()
+            };
+          }) as CustomSite[];
+          setCustomSites(fetchedSites);
+          setIsLoadingSites(false);
+        }
+      );
+    } else {
+      setIsLoadingSites(false);
+    }
+
+    if (options?.loadScheduled !== false) {
+      const scheduledRef = firestoreCollection(db, "scheduled_tours");
+      const scheduledQuery = firestoreQuery(scheduledRef, firestoreOrderBy("createdAt", "desc"));
+      unsubscribeScheduled = firestoreOnSnapshot(
+        scheduledQuery,
+        { includeMetadataChanges: true },
+        (snapshot) => {
+          const fetchedTours = snapshot.docs.map(doc => {
+            const data = doc.data();
+            return {
+              id: doc.id,
+              ...data,
+              createdAt: data.createdAt || new Date()
+            };
+          }) as ScheduledTour[];
+          setScheduledTours(fetchedTours);
+          setIsLoadingScheduled(false);
+        },
+        (err) => {
+          console.error("Firestore Error on scheduled_tours:", err);
+          setIsLoadingScheduled(false);
+        }
+      );
+    } else {
+      setIsLoadingScheduled(false);
+    }
 
     return () => {
       unsubscribeReviews();
       unsubscribeSites();
       unsubscribeScheduled();
     };
-  }, []);
+  }, [options?.loadReviews, options?.loadSites, options?.loadScheduled]);
 
   // --- REVIEWS METHODS ---
   const addReview = async (

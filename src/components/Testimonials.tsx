@@ -24,7 +24,7 @@ import { collection, addDoc } from "firebase/firestore";
 const Testimonials = () => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
-  const { addReview, reviews: customReviews } = useAdminData();
+  const { addReview, reviews: customReviews } = useAdminData({ loadReviews: true, loadSites: false, loadScheduled: false });
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -130,14 +130,22 @@ const Testimonials = () => {
       blurFacesRequested
     });
 
-    // Trigger Email Notification via Firebase 'mail' collection
+    // Trigger Email Notification via Formsubmit.co
     try {
-      await addDoc(collection(db, "mail"), {
-        to: "japlantours.srilanka@gmail.com",
-        message: {
-          subject: `New Tour Review from ${name}`,
-          text: `You have received a new review!\n\nName: ${name}\nLocation: ${city}, ${country}\nRating: ${rating} Stars\nComment: ${comment}\n\nAuto-Blur Requested: ${blurFacesRequested ? "Yes" : "No"}`
-        }
+      await fetch("https://formsubmit.co/ajax/japlantours.srilanka@gmail.com", {
+        method: "POST",
+        headers: { 
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          _subject: `New Tour Review from ${name}`,
+          Name: name,
+          Location: `${city}, ${country}`,
+          Rating: `${rating} Stars`,
+          Comment: comment,
+          "Auto-Blur Requested": blurFacesRequested ? "Yes" : "No"
+        })
       });
     } catch (err) {
       console.error("Failed to enqueue email alert", err);

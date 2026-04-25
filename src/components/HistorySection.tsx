@@ -65,7 +65,7 @@ const TiltCard = ({ site, index, onClick }: { site: Site; index: number; onClick
 
 const HistorySection = () => {
   const { t, language } = useLanguage();
-  const { customSites, isLoadingSites } = useAdminData();
+  const { customSites, isLoadingSites } = useAdminData({ loadSites: true, loadReviews: false, loadScheduled: false });
   const [selectedSite, setSelectedSite] = useState<Site | null>(null);
 
   const processedCustomSites: Site[] = customSites.map(s => ({

@@ -147,9 +147,9 @@ export async function blurFacesInImage(
       const faces = result?.detections ?? [];
 
       if (faces.length === 0) {
-        console.log("[faceBlur] 0 faces detected even with 0.1 confidence. Blurring whole image as fallback.");
-        // If AI definitively fails to find a face in a 'Blur Requested' photo, default to privacy over clarity.
-        return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
+        console.log("[faceBlur] 0 faces detected. Returning original image without blurring.");
+        // We do NOT blur the whole image. Returning unblurred image so admin can manually upload if needed.
+        return canvas.toDataURL("image/jpeg", 0.92);
       }
 
       for (const face of faces) {
@@ -163,8 +163,9 @@ export async function blurFacesInImage(
     }
   }
 
-  // 3. Fallback: blur whole image softly if detector fails to load entirely
-  return blurWholeImage(canvas).toDataURL("image/jpeg", 0.92);
+  // 3. Fallback: if detector fails to load, do NOT blur the whole image.
+  console.log("[faceBlur] Detector failed to load, returning original image.");
+  return canvas.toDataURL("image/jpeg", 0.92);
 }
 
 /**

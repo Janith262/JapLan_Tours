@@ -2,7 +2,7 @@ import { Globe, Mail, Phone, MapPin } from "lucide-react";
 import { useLanguage } from "@/context/useLanguage";
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <footer id="footer" className="bg-foreground text-background py-16">
@@ -35,17 +35,23 @@ const Footer = () => {
             <h4 className="font-semibold mb-4 text-background/90">{t("footer.contact_header")}</h4>
             <div className="space-y-3 text-sm text-background/60">
               <a href={`mailto:${t("footer.email")}`} className="flex items-center gap-2 hover:text-accent transition-colors">
-                <Mail size={14} className="text-accent" />
+                <Mail size={14} className="text-accent shrink-0" />
                 {t("footer.email")}
               </a>
               <a href="https://line.me/ti/p/MatnhhMPdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
-                <Phone size={14} className="text-accent" />
+                <Phone size={14} className="text-accent shrink-0" />
                 {t("footer.phone")}
               </a>
               <div className="flex items-center gap-2">
-                <MapPin size={14} className="text-accent" />
+                <MapPin size={14} className="text-accent shrink-0" />
                 {t("footer.location")}
               </div>
+              <a href="https://share.google/nzE28lZPjr94guuec" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors">
+                <div className="flex items-center justify-center w-3.5 h-3.5 rounded bg-white shrink-0">
+                  <span className="text-[10px] font-bold text-blue-600 leading-none">G</span>
+                </div>
+                {language === 'ja' ? 'Google ビジネス・レビュー' : 'Google Business Profile'}
+              </a>
             </div>
           </div>
         </div>

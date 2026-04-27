@@ -161,6 +161,30 @@ const ImagePanel = ({ reviewId, originalImages, blurRequested, approvedImages: e
       reader.readAsDataURL(file);
     });
 
+  /** Compress base64 images aggressively to fit inside Firestore 1MB doc limits */
+  const compressImage = (base64Str: string, maxWidth = 800, quality = 0.6): Promise<string> => {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.src = base64Str;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx?.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+    });
+  };
+
   const handleSaveAndApprove = async () => {
     setIsSaving(true);
     setSaveError(null);
@@ -178,8 +202,13 @@ const ImagePanel = ({ reviewId, originalImages, blurRequested, approvedImages: e
         finalUrls = originalImages;
       }
 
+      // Aggressively compress images to avoid Firestore 1MB document limit
+      const compressedUrls = await Promise.all(
+        finalUrls.map(url => (url.startsWith('data:image') ? compressImage(url) : url))
+      );
+
       // Store the approved image data URLs directly in Firestore (no Storage needed)
-      await updateReviewApprovedImages(reviewId, finalUrls);
+      await updateReviewApprovedImages(reviewId, compressedUrls);
       onApproved();
     } catch (e) {
       console.error("Save and approve failed", e);

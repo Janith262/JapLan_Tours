@@ -1,15 +1,31 @@
-import { motion } from "framer-motion";
-import { ShieldCheck, Heart, Star } from "lucide-react";
+import { useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { useLanguage } from "../context/useLanguage";
 
-const badges = [
-  { icon: Star, label: "organizer.badge.experience" },
-  { icon: Heart, label: "organizer.badge.friendly" },
-  { icon: ShieldCheck, label: "organizer.badge.verified" },
-];
+// Suranga's message lives in translations.ts (organizer.*).
+// Every "\n" in those texts starts a new paragraph.
+const TOPICS = [1, 2, 3, 4];
+
+const Paragraphs = ({ text, className }: { text: string; className?: string }) => (
+  <div className={className}>
+    {text.split("\n").map((line, i) => (
+      <p key={i}>{line}</p>
+    ))}
+  </div>
+);
 
 const OrganizerSection = () => {
   const { t } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const collapse = () => {
+    setExpanded(false);
+    // If the reader has scrolled down into the long message, bring the card back into view
+    const top = cardRef.current?.getBoundingClientRect().top ?? 0;
+    if (top < 0) cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <section id="organizer" className="py-24 bg-foreground overflow-hidden">
@@ -33,7 +49,7 @@ const OrganizerSection = () => {
         </motion.div>
 
         {/* Card */}
-        <div className="max-w-5xl mx-auto">
+        <div ref={cardRef} className="max-w-5xl mx-auto scroll-mt-24">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -94,29 +110,90 @@ const OrganizerSection = () => {
                 {/* Divider */}
                 <div className="w-16 h-0.5 bg-accent rounded-full mb-6" />
 
-                {/* Description */}
-                <p className="text-background/75 leading-relaxed mb-8 text-base md:text-lg">
-                  {t("organizer.description_para1")}
-                  <span className="text-accent font-semibold">{t("organizer.description_para1_bold")}</span>{" "}
-                  {t("organizer.description_para2")}
-                  <span className="text-background font-medium">{t("organizer.description_para2_bold")}</span>{" "}
-                  {t("organizer.description_para3")}
+                {/* Greeting */}
+                <p className="font-serif text-2xl md:text-3xl font-bold text-background mb-1">
+                  {t("organizer.greeting")}
                 </p>
+                <p className="font-serif text-xl md:text-2xl text-accent mb-5">{t("organizer.welcome")}</p>
 
-                {/* Badges */}
-                <div className="grid grid-cols-2 gap-3">
-                  {badges.map(({ icon: Icon, label }) => (
-                    <div
-                      key={label}
-                      className="flex items-center gap-2.5 bg-background/5 hover:bg-accent/10 border border-background/10 hover:border-accent/30 rounded-xl px-4 py-3 transition-all duration-200"
-                    >
-                      <Icon size={16} className="text-accent shrink-0" />
-                      <span className="text-background/80 text-xs font-medium">{t(label)}</span>
-                    </div>
-                  ))}
-                </div>
+                {/* Introduction */}
+                <Paragraphs
+                  text={t("organizer.intro")}
+                  className="space-y-3 text-background/75 leading-relaxed text-base md:text-[17px] mb-8"
+                />
+
+                <button
+                  type="button"
+                  onClick={expanded ? collapse : () => setExpanded(true)}
+                  aria-expanded={expanded}
+                  aria-controls="organizer-message"
+                  className="self-start inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-2.5 text-sm font-medium text-accent hover:bg-accent hover:text-accent-foreground transition-all"
+                >
+                  {expanded ? t("organizer.read_less") : t("organizer.read_more")}
+                  <ChevronDown size={16} className={`transition-transform duration-300 ${expanded ? "rotate-180" : ""}`} />
+                </button>
               </motion.div>
             </div>
+
+            {/* Full message */}
+            <AnimatePresence initial={false}>
+              {expanded && (
+                <motion.div
+                  id="organizer-message"
+                  key="organizer-message"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                  className="relative z-10 overflow-hidden"
+                >
+                  <div className="border-t border-background/10 px-8 py-10 md:px-12 md:py-12">
+                    <Paragraphs
+                      text={t("organizer.story")}
+                      className="max-w-3xl space-y-3 text-background/75 leading-relaxed text-base md:text-lg mb-10"
+                    />
+
+                    <div className="grid gap-5 md:grid-cols-2">
+                      {TOPICS.map((n) => (
+                        <div
+                          key={n}
+                          className="rounded-2xl border border-background/10 bg-background/5 p-6 md:p-7 hover:border-accent/30 transition-colors"
+                        >
+                          <h4 className="font-serif text-xl font-bold text-accent mb-4">
+                            {t(`organizer.topic${n}.title`)}
+                          </h4>
+                          <Paragraphs
+                            text={t(`organizer.topic${n}.body`)}
+                            className="space-y-2.5 text-background/70 leading-relaxed text-sm md:text-[15px]"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Closing & signature */}
+                    <div className="mt-12 text-center">
+                      <p className="text-background/85 text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8">
+                        {t("organizer.closing")}
+                      </p>
+                      <div className="w-16 h-0.5 bg-accent rounded-full mx-auto mb-6" />
+                      <p className="font-serif text-2xl md:text-3xl font-bold text-accent mb-2">
+                        {t("organizer.signature")}
+                      </p>
+                      <p className="font-serif italic text-background/60">{t("organizer.signature_tagline")}</p>
+
+                      <button
+                        type="button"
+                        onClick={collapse}
+                        className="mt-10 inline-flex items-center gap-2 text-sm text-background/50 hover:text-accent transition-colors"
+                      >
+                        {t("organizer.read_less")}
+                        <ChevronDown size={16} className="rotate-180" />
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>

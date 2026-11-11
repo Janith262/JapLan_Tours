@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ReviewHighlights from "@/components/ReviewHighlights";
 import HistorySection from "@/components/HistorySection";
 import ScheduledTours from "@/components/ScheduledTours";
 import CustomTourBuilder from "@/components/CustomTourBuilder";
@@ -14,12 +15,13 @@ const Index = () => {
     <div className="min-h-screen">
       <Navbar />
       <Hero />
+      <ReviewHighlights />
+      <OrganizerSection />
       <HistorySection />
       <ScheduledTours />
       <CustomTourBuilder />
       <Testimonials />
       <FAQ />
-      <OrganizerSection />
       <Footer />
       <FloatingLine />
     </div>

@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import { Star, BadgeCheck, Quote, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/useLanguage";
-import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation, getReviewDate, formatReviewDateTime } from "@/hooks/useAdminData";
 
 // How many reviews this short section shows. Every review is in the full
 // "Traveler Stories" section (Testimonials.tsx) further down the page.
 const HIGHLIGHT_COUNT = 3;
 
 const ReviewHighlights = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { reviews, isLoadingReviews } = useAdminData({ loadReviews: true, loadSites: false, loadScheduled: false });
 
   const approved = reviews.filter((r) => r.status === "approved");
@@ -69,7 +69,10 @@ const ReviewHighlights = () => {
                   <div className="h-10 w-32 rounded bg-muted" />
                 </div>
               ))
-            : highlights.map((review, i) => (
+            : highlights.map((review, i) => {
+                // Guestbook letters were typed up later, so their createdAt is not when they were written
+                const date = review.source === "guestbook" ? null : getReviewDate(review.createdAt);
+                return (
                 <motion.article
                   key={review.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -96,6 +99,11 @@ const ReviewHighlights = () => {
                       <p className="text-xs text-muted-foreground truncate">
                         {review.source === "guestbook" ? t("testimonials.guestbook") : formatReviewLocation(review)}
                       </p>
+                      {date && (
+                        <time dateTime={date.toISOString()} className="block text-[11px] text-muted-foreground/80 mt-0.5">
+                          {formatReviewDateTime(date, language)}
+                        </time>
+                      )}
                     </div>
                     <div className="flex items-center gap-1 text-secondary shrink-0">
                       <BadgeCheck size={16} />
@@ -103,7 +111,8 @@ const ReviewHighlights = () => {
                     </div>
                   </div>
                 </motion.article>
-              ))}
+                );
+              })}
         </div>
 
         <div className="mt-12 flex justify-center">

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation, getReviewDate } from "@/hooks/useAdminData";
 import {
   CheckCircle2, Trash2, Clock, Star, Download, Upload,
   Eye, EyeOff, Wand2, ChevronLeft, ChevronRight, X, ImageIcon
@@ -399,7 +399,7 @@ const ReviewsManager = () => {
 
               <p className="text-card-foreground text-sm italic border-l-2 border-accent pl-3">"{review.comment}"</p>
               <p className="text-xs text-muted-foreground">
-                Submitted: {review.createdAt?.toDate ? review.createdAt.toDate().toLocaleDateString() : new Date(review.createdAt).toLocaleDateString()}
+                {review.source === "guestbook" ? "Added" : "Submitted"}: {getReviewDate(review.createdAt)?.toLocaleString() ?? "—"}
               </p>
             </div>
 

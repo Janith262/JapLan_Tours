@@ -35,6 +35,21 @@ export interface Review {
 export const formatReviewLocation = (r: Pick<Review, "city" | "country">) =>
   [r.city, r.country].filter(Boolean).join(", ");
 
+/** A review's createdAt as a Date (Firestore Timestamp, Date or string), or null if missing/invalid. */
+export const getReviewDate = (createdAt: unknown): Date | null => {
+  if (!createdAt) return null;
+  const ts = createdAt as { toDate?: () => Date };
+  const date = typeof ts.toDate === "function" ? ts.toDate() : new Date(createdAt as string | number | Date);
+  return isNaN(date.getTime()) ? null : date;
+};
+
+/** e.g. ja: "2026年10月10日 19:56", en: "Oct 10, 2026, 7:56 PM" (viewer's local time) */
+export const formatReviewDateTime = (date: Date, language: "en" | "ja") =>
+  date.toLocaleString(language === "ja" ? "ja-JP" : "en-US", {
+    dateStyle: language === "ja" ? "long" : "medium",
+    timeStyle: "short",
+  });
+
 export interface CustomSite {
   id: string;
   name: string;

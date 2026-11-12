@@ -15,14 +15,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation, getReviewDate, formatReviewDateTime } from "@/hooks/useAdminData";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
 import { db } from "@/lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 const Testimonials = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const isMobile = useIsMobile();
   const { addReview, reviews: customReviews } = useAdminData({ loadReviews: true, loadSites: false, loadScheduled: false });
   const [isOpen, setIsOpen] = useState(false);
@@ -176,6 +176,8 @@ const Testimonials = () => {
       rating: r.rating,
       text: r.comment,
       location: r.source === "guestbook" ? t("testimonials.guestbook") : formatReviewLocation(r),
+      // Guestbook letters were typed up later, so their createdAt is not when they were written
+      date: r.source === "guestbook" ? null : getReviewDate(r.createdAt),
       // Use approvedImages if available, fallback to original images
       images: r.approvedImages && r.approvedImages.length > 0 ? r.approvedImages : r.images
     }));
@@ -436,6 +438,11 @@ const Testimonials = () => {
                   <div>
                     <p className="font-semibold text-foreground text-sm">{review.name}</p>
                     <p className="text-xs text-muted-foreground">{review.location}</p>
+                    {review.date && (
+                      <time dateTime={review.date.toISOString()} className="block text-[11px] text-muted-foreground/80 mt-0.5">
+                        {formatReviewDateTime(review.date, language)}
+                      </time>
+                    )}
                   </div>
                   <div className="flex items-center gap-1 text-secondary">
                     <BadgeCheck size={16} />

@@ -110,6 +110,12 @@
   input, textarea {
     line-height: normal !important;
   }
+
+  /* Hide Edge's built-in password eye (the admin login has its own) */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
 }
 
 @layer utilities {

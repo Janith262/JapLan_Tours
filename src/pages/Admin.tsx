@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LogIn, Database, LogOut, Map, CalendarDays } from "lucide-react";
+import { LogIn, Database, LogOut, Map, CalendarDays, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +16,7 @@ const Admin = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState<"reviews" | "sites" | "scheduledTours">("reviews");
   const { toast } = useToast();
 
@@ -49,6 +50,7 @@ const Admin = () => {
       await signOut(auth);
       setUsername("");
       setPassword("");
+      setShowPassword(false);
     } catch (error) {
       toast({
         title: "Error",
@@ -85,14 +87,28 @@ const Admin = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input 
-                id="password" 
-                type="password" 
-                value={password} 
-                onChange={e => setPassword(e.target.value)} 
-                required 
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  required
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  className="pr-11"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(v => !v)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                  title={showPassword ? "Hide password" : "Show password"}
+                  className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
             <Button type="submit" className="w-full bg-accent text-accent-foreground hover:brightness-110 gap-2">
               <LogIn size={18} /> Sign In

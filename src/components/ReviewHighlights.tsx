@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Star, BadgeCheck, Quote, ArrowRight } from "lucide-react";
+import { Star, BadgeCheck, Quote, ArrowRight, X } from "lucide-react";
 import { useLanguage } from "@/context/useLanguage";
 import { useAdminData, formatReviewLocation, getReviewDate, formatReviewDateTime } from "@/hooks/useAdminData";
+import { getReviewDisplayImages } from "@/lib/reviewPhotos";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 // How many reviews this short section shows. Every review is in the full
 // "Traveler Stories" section (Testimonials.tsx) further down the page.
@@ -10,6 +13,7 @@ const HIGHLIGHT_COUNT = 3;
 const ReviewHighlights = () => {
   const { t, language } = useLanguage();
   const { reviews, isLoadingReviews } = useAdminData({ loadReviews: true, loadSites: false, loadScheduled: false });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const approved = reviews.filter((r) => r.status === "approved");
   // Reviews arrive newest first, so this shows the latest approved reviews
@@ -72,6 +76,7 @@ const ReviewHighlights = () => {
             : highlights.map((review, i) => {
                 // Guestbook letters were typed up later, so their createdAt is not when they were written
                 const date = review.source === "guestbook" ? null : getReviewDate(review.createdAt);
+                const images = getReviewDisplayImages(review);
                 return (
                 <motion.article
                   key={review.id}
@@ -92,6 +97,21 @@ const ReviewHighlights = () => {
                   <p className="text-foreground leading-relaxed mb-6 whitespace-pre-line line-clamp-6">
                     {review.comment}
                   </p>
+
+                  {images.length > 0 && (
+                    <div className="flex gap-2 mb-6">
+                      {images.slice(0, 3).map((img, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setSelectedImage(img)}
+                          className="w-16 h-20 shrink-0 overflow-hidden rounded-lg border border-border hover:opacity-80 transition-opacity focus:outline-none focus:ring-2 focus:ring-accent"
+                        >
+                          <img src={img} alt="Review photo" className="w-full h-full object-cover" loading="lazy" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
                   <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between gap-3">
                     <div className="min-w-0">
@@ -124,6 +144,26 @@ const ReviewHighlights = () => {
             <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
           </a>
         </div>
+
+        {/* Enlarged photo */}
+        <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
+          <DialogContent className="max-w-4xl p-0 overflow-hidden border-none bg-transparent shadow-none [&>button]:hidden">
+            <DialogTitle className="sr-only">Review photo</DialogTitle>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setSelectedImage(null)}
+                aria-label="Close"
+                className="absolute -top-12 right-0 z-50 p-2 text-white hover:text-white/80 transition-colors bg-black/40 rounded-full hover:bg-black/60 focus:outline-none"
+              >
+                <X size={24} />
+              </button>
+              {selectedImage && (
+                <img src={selectedImage} alt="Enlarged review photo" className="w-full max-h-[85vh] object-contain rounded-lg" />
+              )}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </section>
   );

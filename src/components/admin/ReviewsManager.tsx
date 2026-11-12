@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { useAdminData, formatReviewLocation, getReviewDate } from "@/hooks/useAdminData";
+import { GUESTBOOK_PHOTOS } from "@/lib/reviewPhotos";
 import {
   CheckCircle2, Trash2, Clock, Star, Download, Upload,
   Eye, EyeOff, Wand2, ChevronLeft, ChevronRight, X, ImageIcon
@@ -398,6 +399,22 @@ const ReviewsManager = () => {
               </div>
 
               <p className="text-card-foreground text-sm italic border-l-2 border-accent pl-3">"{review.comment}"</p>
+              {GUESTBOOK_PHOTOS[review.id] && (
+                <a
+                  href={GUESTBOOK_PHOTOS[review.id]}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="Open the letter photo"
+                  className="inline-block"
+                >
+                  <img
+                    src={GUESTBOOK_PHOTOS[review.id]}
+                    alt="Guestbook letter"
+                    className="h-40 rounded-lg border border-border object-cover hover:opacity-90 transition-opacity"
+                    loading="lazy"
+                  />
+                </a>
+              )}
               <p className="text-xs text-muted-foreground">
                 {review.source === "guestbook" ? "Added" : "Submitted"}: {getReviewDate(review.createdAt)?.toLocaleString() ?? "—"}
               </p>

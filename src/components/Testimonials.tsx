@@ -16,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAdminData, formatReviewLocation, getReviewDate, formatReviewDateTime } from "@/hooks/useAdminData";
+import { getReviewDisplayImages } from "@/lib/reviewPhotos";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
 import { db } from "@/lib/firebase";
@@ -178,8 +179,8 @@ const Testimonials = () => {
       location: r.source === "guestbook" ? t("testimonials.guestbook") : formatReviewLocation(r),
       // Guestbook letters were typed up later, so their createdAt is not when they were written
       date: r.source === "guestbook" ? null : getReviewDate(r.createdAt),
-      // Use approvedImages if available, fallback to original images
-      images: r.approvedImages && r.approvedImages.length > 0 ? r.approvedImages : r.images
+      // Approved photos, else original photos, else the guestbook letter photo
+      images: getReviewDisplayImages(r)
     }));
 
   const renderFormBody = (mobile: boolean) => {

@@ -32,6 +32,8 @@ export const translations = {
     "tour.your_interests": "Your interests",
 
     // Vehicles
+    "vehicle.minicar": "Mini Car",
+    "vehicle.minicar_sub": "1-2 Passengers",
     "vehicle.sedan": "Sedan",
     "vehicle.sedan_sub": "1-2 Passengers",
     "vehicle.van": "Luxury Van",
@@ -305,6 +307,8 @@ export const translations = {
     "tour.your_interests": "あなたの興味",
 
     // Vehicles
+    "vehicle.minicar": "コンパクトカー",
+    "vehicle.minicar_sub": "1～2名",
     "vehicle.sedan": "セダン",
     "vehicle.sedan_sub": "1～2名",
     "vehicle.van": "ラグジュアリーバン",

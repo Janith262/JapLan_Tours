@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { LogIn, Database, LogOut, Map, CalendarDays, Eye, EyeOff } from "lucide-react";
+import { Link } from "react-router-dom";
+import { LogIn, Database, LogOut, Map, CalendarDays, Eye, EyeOff, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -115,6 +116,12 @@ const Admin = () => {
               <LogIn size={18} /> Sign In
             </Button>
           </form>
+
+          <Button asChild variant="outline" className="w-full mt-3 gap-2">
+            <Link to="/">
+              <Home size={18} /> Go to Home Page
+            </Link>
+          </Button>
         </div>
       </div>
     );

@@ -82,7 +82,8 @@ const Admin = () => {
                 value={username} 
                 onChange={e => setUsername(e.target.value)} 
                 required 
-                placeholder="admin@japlantours.com"
+                placeholder="Enter your admin email"
+                autoComplete="username"
               />
             </div>
             <div className="space-y-2">
@@ -94,7 +95,7 @@ const Admin = () => {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   autoComplete="current-password"
                   className="pr-11"
                 />

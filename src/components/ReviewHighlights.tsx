@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, BadgeCheck, Quote, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/useLanguage";
-import { useAdminData } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
 
 // How many reviews this short section shows. Every review is in the full
 // "Traveler Stories" section (Testimonials.tsx) further down the page.
@@ -94,7 +94,7 @@ const ReviewHighlights = () => {
                     <div className="min-w-0">
                       <p className="font-semibold text-foreground text-sm truncate">{review.name}</p>
                       <p className="text-xs text-muted-foreground truncate">
-                        {review.city}, {review.country}
+                        {review.source === "guestbook" ? t("testimonials.guestbook") : formatReviewLocation(review)}
                       </p>
                     </div>
                     <div className="flex items-center gap-1 text-secondary shrink-0">

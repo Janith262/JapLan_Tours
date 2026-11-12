@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAdminData } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Drawer, DrawerContent, DrawerTrigger, DrawerTitle, DrawerHeader, DrawerDescription, DrawerClose } from "@/components/ui/drawer";
 import { db } from "@/lib/firebase";
@@ -175,7 +175,7 @@ const Testimonials = () => {
       name: r.name,
       rating: r.rating,
       text: r.comment,
-      location: `${r.city}, ${r.country}`,
+      location: r.source === "guestbook" ? t("testimonials.guestbook") : formatReviewLocation(r),
       // Use approvedImages if available, fallback to original images
       images: r.approvedImages && r.approvedImages.length > 0 ? r.approvedImages : r.images
     }));

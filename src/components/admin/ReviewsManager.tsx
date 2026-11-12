@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useAdminData } from "@/hooks/useAdminData";
+import { useAdminData, formatReviewLocation } from "@/hooks/useAdminData";
 import {
   CheckCircle2, Trash2, Clock, Star, Download, Upload,
   Eye, EyeOff, Wand2, ChevronLeft, ChevronRight, X, ImageIcon
@@ -367,7 +367,9 @@ const ReviewsManager = () => {
             <div className="flex-1 space-y-3">
               <div className="flex items-center gap-3 flex-wrap">
                 <h3 className="font-semibold text-lg">{review.name}</h3>
-                <span className="text-sm text-muted-foreground">{review.city}, {review.country}</span>
+                <span className="text-sm text-muted-foreground">
+                  {review.source === "guestbook" ? "Guestbook letter" : formatReviewLocation(review)}
+                </span>
                 {review.status === "approved" ? (
                   <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#06C755]/10 text-[#06C755]">
                     <CheckCircle2 size={14} /> Approved

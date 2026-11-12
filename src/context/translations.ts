@@ -94,9 +94,9 @@ export const translations = {
     "organizer.title": "Meet Your Organizer",
     "organizer.name": "Suranga Kumara",
     "organizer.role": "Tour Organizer & Guide",
-    "organizer.location": "Base: Colombo, Sri Lanka",
+    "organizer.location": "Colombo, Sri Lanka",
     // Organizer message (each line break = new paragraph)
-    "organizer.greeting": "Hello! 🇱🇰",
+    "organizer.greeting": "Hello!",
     "organizer.welcome": "Welcome to Japlan Tours!",
     "organizer.intro": "Nice to meet you! I'm Suranga, and I live in the city of Gampaha, Sri Lanka.\nGampaha is close to Katunayake, home of Sri Lanka's Bandaranaike International Airport (Colombo International Airport).\nThank you so much for visiting my website, Japlan Tours.\nI mainly provide sightseeing services in Sri Lanka for travelers from Japan.",
     "organizer.story": "Over the years, I have guided many travelers who came to Sri Lanka from Europe, Asia and countries all around the world.\nAmong them, Japanese guests hold a special place for me.\nI find that Japanese people are very kind and polite, respect other people and cultures, and value their time.\nMeeting so many wonderful Japanese travelers made me want to share more of Sri Lanka's charm with people from Japan.\nThat is why I started the Japlan Tours website: to specialize in guiding Japanese guests and to support them in every way during their trip.",
@@ -104,13 +104,13 @@ export const translations = {
     "organizer.topic1.body": "During tours in Sri Lanka, I usually guide in simple English.\nI am currently studying Japanese very hard.\nI can't speak Japanese fluently yet, but before your trip I can reply to your messages in Japanese on LINE, email, WhatsApp and more without any problem, with the help of translation tools.\nPlease feel free to contact me without worrying about the language.",
     "organizer.topic2.title": "A Travel Plan Made Just for You",
     "organizer.topic2.body": "I value a simple, peaceful life.\nI make my living by offering Japanese guests quality tour services in Sri Lanka at fair prices.\nI always aim to provide honest, satisfying service that is worth what you pay.\nWhen planning your trip, I include your wishes and requests as much as possible to create a plan that suits you.\nFor families with small children, young travelers and senior guests alike, I suggest a relaxed schedule that fits each person's age, energy and wishes.\nYou are spending your precious time to come all the way to Sri Lanka, so I want your trip to be fulfilling, fun and unforgettable.",
-    "organizer.topic3.title": "Sri Lanka, the Country I Love 🇱🇰",
+    "organizer.topic3.title": "Sri Lanka, the Country I Love",
     "organizer.topic3.body": "I am truly proud to be Sri Lankan.\nSri Lanka is a beautiful country full of charm.\nLush nature, beautiful waterfalls, misty tea plantations and national parks where wild animals roam freely — there are so many amazing sights here.\nSri Lanka also has many historical and cultural sites listed as World Heritage Sites.\nAbove all, Sri Lanka is known for the warm hospitality of its people.\nI guide every Japanese traveler with all my heart so that they can feel the true charm of this country.",
     "organizer.topic4.title": "A Safe, Worry-Free and Memorable Journey",
     "organizer.topic4.body": "To help you make the most of your precious travel time, I manage time carefully while staying as flexible as possible.\nSafe driving always comes first, and I will guide you around Sri Lanka according to your wishes.\nMy biggest goal is for you to create wonderful, unforgettable memories in Sri Lanka.\nThrough Japlan Tours, I will support you wholeheartedly so that your trip to Sri Lanka is full of smiles and happiness.",
     "organizer.closing": "I look forward with all my heart to the day we can enjoy traveling together in Sri Lanka!",
     "organizer.signature": "Japlan Tours",
-    "organizer.signature_tagline": "Heartfelt hospitality, from Sri Lanka. 🇯🇵❤️🇱🇰",
+    "organizer.signature_tagline": "Heartfelt hospitality, from Sri Lanka.",
     "organizer.read_more": "Read my full message",
     "organizer.read_less": "Show less",
 
@@ -160,6 +160,7 @@ export const translations = {
     "testimonials.title": "Traveler Stories",
     "testimonials.description": "Real experiences from our Japanese travelers who explored Sri Lanka with JapLan Tours.",
     "testimonials.verified_trip": "Verified Trip",
+    "testimonials.guestbook": "From our guestbook",
 
     // Review highlights (short review section near the top)
     "highlights.tagline": "Reviews",
@@ -366,9 +367,9 @@ export const translations = {
     "organizer.title": "主催者に会う",
     "organizer.name": "スランガ・クマーラ",
     "organizer.role": "ツアー主催者 & ガイド",
-    "organizer.location": "拠点：コロンボ、スリランカ",
+    "organizer.location": "コロンボ、スリランカ",
     // Organizer message (each line break = new paragraph)
-    "organizer.greeting": "こんにちは！🇱🇰",
+    "organizer.greeting": "こんにちは！",
     "organizer.welcome": "Japlan Toursへようこそ！",
     "organizer.intro": "はじめまして！スリランカのガンパハ市に住んでいるスランガです。\nガンパハは、スリランカのバンダラナイケ国際空港（コロンボ国際空港）があるカトゥナーヤカの近くに位置しています。\nこの度は、私のウェブサイト「Japlan Tours」をご覧いただき、本当にありがとうございます。\n私は主に、日本人のお客様を対象にスリランカでの観光サービスを提供しています。",
     "organizer.story": "これまで、ヨーロッパやアジアをはじめ、世界各国からスリランカを訪れる多くの外国人旅行者をご案内してきました。\nその中でも、日本人のお客様は私にとって特別な存在です。\n日本の方々はとても親切で礼儀正しく、ほかの国の人々や文化を尊重し、時間を大切にする方が多いと感じています。\nそのような日本人の皆様との出会いを通じて、日本の方々にもっとスリランカの魅力を知っていただきたいと思うようになりました。\nそして、日本人のお客様を専門にご案内し、旅行中にさまざまなサポートを提供するために、Japlan Toursのウェブサイトを立ち上げました。",
@@ -376,13 +377,13 @@ export const translations = {
     "organizer.topic1.body": "スリランカでのご案内は、基本的に簡単な英語を使って行っています。\n現在、私は日本語を一生懸命勉強しています。\nまだ日本語を流暢に話すことはできませんが、ご旅行前のLINE、Eメール、WhatsAppなどでの日本語によるメッセージのやり取りには、翻訳機能を活用しながら問題なく対応しています。\n言葉の面で不安を感じることなく、安心してご相談いただければと思います。",
     "organizer.topic2.title": "お客様一人ひとりに合った旅行プラン",
     "organizer.topic2.body": "私はシンプルで穏やかな生活を大切にしています。\n日本人のお客様に、スリランカで適正な料金で質の良い観光サービスを提供し、その仕事から得られる収入で生活しています。\nお客様からいただく料金に見合った、誠実で満足度の高いサービスを提供することを大切にしています。\n旅行の計画を立てる際には、お客様のご希望やご要望をできる限り取り入れ、お一人おひとりに合った旅行プランを作成します。\n小さなお子様連れのご家族、若い方々、そしてシニアのお客様まで、それぞれの年齢や体力、ご希望に合わせて無理のないスケジュールをご提案します。\nせっかく貴重な時間を使ってスリランカまで来てくださるのですから、皆様にとって充実した、楽しく思い出に残る旅行にしていただきたいと考えています。",
-    "organizer.topic3.title": "私の大好きな国、スリランカ 🇱🇰",
+    "organizer.topic3.title": "私の大好きな国、スリランカ",
     "organizer.topic3.body": "私はスリランカ人であることを心から誇りに思っています。\nスリランカは、本当に美しく魅力あふれる国です。\n緑豊かな大自然、美しい滝、霧に包まれた紅茶畑、そして野生動物たちが自由に暮らす国立公園など、ここにはたくさんの素晴らしい景色があります。\nまた、スリランカには世界遺産に登録された歴史的・文化的な名所も数多くあります。\nそして何より、スリランカは人々の温かいおもてなしで知られる国です。\n私は、スリランカを訪れる日本人の皆様に、この国の本当の魅力を感じていただけるよう、心を込めてご案内しています。",
     "organizer.topic4.title": "安心・安全で思い出に残る旅を",
     "organizer.topic4.body": "お客様の大切な旅行時間を有効に使えるよう、時間管理を大切にしながら、できる限り柔軟に対応いたします。\n安全運転を第一に考え、お客様のご希望に合わせてスリランカ各地をご案内します。\n私の一番の目標は、皆様にスリランカで忘れられない素晴らしい思い出を作っていただくことです。\nJaplan Toursを通じて、皆様のスリランカ旅行が笑顔と幸せにあふれる旅になるよう、誠心誠意サポートいたします。",
     "organizer.closing": "スリランカで皆様と一緒に旅を楽しめる日を、心より楽しみにしています！",
     "organizer.signature": "Japlan Tours",
-    "organizer.signature_tagline": "心を込めたおもてなしを、スリランカから。🇯🇵❤️🇱🇰",
+    "organizer.signature_tagline": "心を込めたおもてなしを、スリランカから。",
     "organizer.read_more": "メッセージの続きを読む",
     "organizer.read_less": "閉じる",
 
@@ -432,6 +433,7 @@ export const translations = {
     "testimonials.title": "旅行者の物語",
     "testimonials.description": "JapLan Toursでスリランカを探索した日本人旅行者の実体験です。",
     "testimonials.verified_trip": "認証済みの旅行",
+    "testimonials.guestbook": "ゲストブックより",
 
     // Review highlights (short review section near the top)
     "highlights.tagline": "お客様の声",

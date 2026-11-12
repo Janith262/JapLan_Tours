@@ -28,7 +28,12 @@ export interface Review {
   images?: string[];           // original uploaded image base64 data URLs
   blurFacesRequested?: boolean;
   approvedImages?: string[];   // final approved (blurred or untouched) image base64 data URLs
+  source?: "guestbook";        // typed up from the handwritten guestbook (no city/country)
 }
+
+/** "City, Country", skipping whichever part is empty. */
+export const formatReviewLocation = (r: Pick<Review, "city" | "country">) =>
+  [r.city, r.country].filter(Boolean).join(", ");
 
 export interface CustomSite {
   id: string;
